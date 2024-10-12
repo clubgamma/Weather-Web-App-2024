@@ -8,6 +8,18 @@
 </head>
 <body>
     <h1>Welcome to Weather.io</h1>
+    <div class="search-container">
+        <input type="text" id="city-input" placeholder="Enter city name">
+        <button id="search-btn">Search</button>
+    </div>
+    <div class="weather-container">
+        <h2 id="location"></h2>
+        <p id="temperature"></p>
+        <p id="description"></p>
+        <img id="weather-icon" src="https://tse4.mm.bing.net/th?id=OIP.xYd1vKO7iSv6Cnk5ccVjVAHaHa&pid=Api&P=0&h=180" alt="Weather icon">
+    </div>
+
+    <div id="error"></div>
 
     <script src="./index.js"></script>
 </body>
