@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Location Landing Page</title>
+  <style>
+    /* Base styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #150a3b;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 400px;
+    }
+    /* Base styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+      background-color: white;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      width: 90%;
+    }
+
+    h1 {
+      color: #333;
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+
+    p {
+      color: #666;
+      font-size: 1.1em;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .features {
+      text-align: left;
+      margin: 20px 0;
+    }
+
+    .features li {
+      font-size: 1.2em;
+      color: #444;
+      padding: 10px 0;
+    }
+
+    button {
+      background-color: #3498db;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 600px) {
+      .container {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 2em;
+      }
+
+      p, .features li {
+        font-size: 1em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Weather App</h1>
+    <p>Get real-time weather updates with our feature-packed weather app. Whether you're planning your day or traveling, we've got you covered.</p>
+
+    <ul class="features">
+      <li><strong>Real-time Weather Data:</strong> Access accurate and up-to-date weather information instantly.</li>
+      <li><strong>Search Functionality:</strong> Look up the weather for any city worldwide, quickly and easily.</li>
+      <li><strong>Responsive Design:</strong> Our app adapts to any device, ensuring you have a seamless experience on desktop, tablet, or mobile.</li>
+      <li><strong>Interactive UI:</strong> Enjoy a user-friendly and visually appealing interface that's easy to navigate.</li>
+    </ul>
+
+    <button onclick="learnMore()">Learn More</button>
+  </div>
+
+  <script>
+    function learnMore() {
+      alert('Thank you for your interest! More features coming soon.');
+    }
+  </script>
+<style>
+    h1 {
+      color: #8fb32fc4;
+    }
+
+    .input-field {
+      margin-top: 20px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      box-sizing: border-box;
+      border: 2px solid #c48a8a;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #475298;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 600px) {
+      .container {
+        width: 100%;
+        padding: 10px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      input[type="text"], button {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Enter Your Location</h1>
+    <div class="input-field">
+      <input type="text" id="location" name="location" placeholder="Enter your city or location...">
+    </div>
+    <button type="submit" onclick="submitLocation()">Submit</button>
+  </div>
+
+  <script>
+    function submitLocation() {
+      const location = document.getElementById('location').value;
+      if (location) {
+        alert("You entered: " + location);
+      } else {
+        alert("Please enter a location.");
+      }
+    }
+  </script>
+
+</body>
+</html>
+
