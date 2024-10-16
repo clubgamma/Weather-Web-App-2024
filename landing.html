@@ -106,7 +106,8 @@
 <body>
 
   <div class="container">
-    <h1>Weather App</h1>
+    <h1>Weather-Web-App 2024</h1>
+    <p><strong><span style="color: #518f53; font-size: 23px;">About-</span></strong>This Weather Web App is a simple and intuitive web application that allows users to check the current weather conditions for any city around the world.</p>
     <p>Get real-time weather updates with our feature-packed weather app. Whether you're planning your day or traveling, we've got you covered.</p>
 
     <ul class="features">
@@ -180,12 +181,30 @@
     <h1>Enter Your Location</h1>
     <div class="input-field">
       <input type="text" id="location" name="location" placeholder="Enter your city or location...">
-    </div>
-    <button type="submit" onclick="submitLocation()">Submit</button>
-  </div>
+    
+      
 
-  <script>
-    function submitLocation() {
+<script>
+      const locationInput = document.createElement("input");
+      locationInput.setAttribute("list", "locations"); // Connect input to the datalist
+      locationInput.setAttribute("placeholder", "Choose a city or type here"); // Add a placeholder
+      
+      // Create a datalist element to provide the options
+      const locationList = document.createElement("datalist");
+      locationList.id = "locations";
+      
+      // Create option elements for each location
+      const locations = ["Chennai", "Mumbai", "Ahmedabad"];
+      locations.forEach(function(location) {
+          const option = document.createElement("option");
+          option.value = location;
+          locationList.appendChild(option);
+      });
+      
+      // Append the input and datalist to the document body or a specific container
+      document.body.appendChild(locationInput);
+      document.body.appendChild(locationList);
+      function submitLocation() {
       const location = document.getElementById('location').value;
       if (location) {
         alert("You entered: " + location);
