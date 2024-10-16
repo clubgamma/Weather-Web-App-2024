@@ -173,36 +173,9 @@
     
       
 
-<script>
-      const locationInput = document.createElement("input");
-      locationInput.setAttribute("list", "locations"); // Connect input to the datalist
-      locationInput.setAttribute("placeholder", "Choose a city or type here"); // Add a placeholder
-      
-      // Create a datalist element to provide the options
-      const locationList = document.createElement("datalist");
-      locationList.id = "locations";
-      
-      // Create option elements for each location
-      const locations = ["Chennai", "Mumbai", "Ahmedabad"];
-      locations.forEach(function(location) {
-          const option = document.createElement("option");
-          option.value = location;
-          locationList.appendChild(option);
-      });
-      
-      // Append the input and datalist to the document body or a specific container
-      document.body.appendChild(locationInput);
-      document.body.appendChild(locationList);
-      function submitLocation() {
-      const location = document.getElementById('location').value;
-      if (location) {
-        alert("You entered: " + location);
-      } else {
-        alert("Please enter a location.");
-      }
-    }
-  </script>
 
+  </script>
+<section style="position: relative; top: 50px;">
 <div>
   <h1>FEATURES</h1>
   <ul class="features">
@@ -211,7 +184,7 @@
     <li><strong>Responsive Design:</strong> Our app adapts to any device, ensuring you have a seamless experience on desktop, tablet, or mobile.</li>
     <li><strong>Interactive UI:</strong> Enjoy a user-friendly and visually appealing interface that's easy to navigate.</li>
   </ul>
-
+</section>
 </body>
 </html>
 
