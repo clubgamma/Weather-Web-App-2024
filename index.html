@@ -1,14 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather App</title>
-</head>
-<body>
-    <h1>Welcome to Weather.io</h1>
+    <link rel="stylesheet" href="css/style.css" />
+    <script
+      src="https://kit.fontawesome.com/a076d05399.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <div class="app-container">
+      <div class="search-box">
+        <input type="text" id="city-input" placeholder="Enter city name..." />
+        <button id="search-btn">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
 
-    <script src="./index.js"></script>
-</body>
+      <div class="weather-card" id="weather-card" style="display: none">
+        <h2 id="city-name">City Name</h2>
+        <div class="weather-info">
+          <div class="temp">
+            <h1 id="temperature">--°C</h1>
+          </div>
+          <div class="details">
+            <div class="detail">
+              <i class="fas fa-tint"></i>
+              <p>Humidity <span id="humidity">--</span></p>
+            </div>
+            <div class="detail">
+              <i class="fas fa-wind"></i>
+              <p>Wind <span id="wind-speed">--</span></p>
+            </div>
+            <div class="detail">
+              <i class="fas fa-cloud"></i>
+              <p>Feel <span id="weather-desc">--</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p id="error-msg" style="color: red; display: none">
+        City not found. Please try again!
+      </p>
+    </div>
+
+    <script src="index.js"></script>
+  </body>
 </html>
