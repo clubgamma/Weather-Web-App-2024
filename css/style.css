@@ -18,8 +18,15 @@ body {
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    margin-top: 80px;
-    margin-bottom: 80px;
+    margin: 40px auto;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
 }
 
 .search-box, .features-box {
@@ -36,13 +43,60 @@ body {
     background-color: #e6f3ff;
 }
 
+.city-info {
+    text-align: center;
+    margin-bottom: 40px; /* Increased margin */
+}
+
+#city-name {
+    color: #2193b0;
+    font-size: 1.8em;
+    margin: 0;
+}
+
+#current-date {
+    color: #555;
+    font-size: 1em;
+    margin: 15px 0 0; /* Increased top margin */
+}
+
+#change-city-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    background-color: #2193b0;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#change-city-btn:hover {
+    background-color: #1c7a94;
+}
+
+main section {
+    background-color: #f0f8ff;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 40px; /* Increased margin */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+main section:hover {
+    transform: translateY(-5px);
+    background-color: #e6f3ff;
+}
+
 h1 {
     color: #2193b0;
-    margin-bottom: 20px;
-    text-align: center;
-    font-size: 3.5em;
+    font-size: 2.5em;
     font-weight: 700;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    margin: 0;
 }
 
 p {
@@ -98,60 +152,126 @@ h2 {
     font-weight: 600;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
-    margin-bottom: 12px;
-    color: #555;
-    display: flex;
-    align-items: center;
-    font-size: 1.1em;
-    font-weight: 300;
-}
-
-li:before {
-    content: "✓";
+h3 {
     color: #2193b0;
-    font-weight: bold;
-    margin-right: 10px;
-    background-color: #e0f7fa;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+footer {
+    text-align: center;
+    color: #555;
+    font-size: 0.9em;
+    margin-top: 30px;
+}
+
+.hidden {
+    display: none;
+}
+
+#weather-data {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#weather-data.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.weather-details {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: space-around;
+    padding: 20px;
+    flex-wrap: wrap;
 }
 
-@media screen and (max-width: 480px) {
-    h1 {
-        font-size: 2em;
-    }
-
-    .container {
-        padding: 15px;
-    }
-
-    .search-box, .features-box {
-        padding: 20px;
-    }
+.weather-icon {
+    color: #2193b0;
+    margin-bottom: 15px;
 }
+
+.weather-text {
+    text-align: center;
+}
+
+.temperature {
+    font-size: 2.5em;
+    font-weight: 600;
+    color: #2193b0;
+    margin: 0;
+}
+
+.description {
+    font-size: 1.2em;
+    color: #555;
+    margin: 5px 0 0;
+}
+
+.forecast-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.forecast-day {
+    text-align: center;
+    padding: 10px;
+    background-color: rgba(33, 147, 176, 0.1);
+    border-radius: 10px;
+    margin: 5px;
+    flex: 1;
+    min-width: 80px;
+}
+
+.forecast-day p {
+    margin: 5px 0;
+}
+
+.forecast-day i {
+    font-size: 1.5em;
+    color: #2193b0;
+    margin: 10px 0;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.detail-item i {
+    font-size: 1.5em;
+    color: #2193b0;
+    margin-right: 10px;
+}
+
 @media screen and (max-width: 768px) {
     .container {
         width: 95%;
         padding: 20px;
+        margin: 20px auto;
     }
 
     h1 {
-        font-size: 2.5em;
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    h3 {
+        font-size: 1.3em;
     }
 
     p {
         font-size: 1em;
     }
+
     .search-input {
         flex-direction: column;
     }
@@ -169,11 +289,30 @@ li:before {
     #search-btn {
         border-radius: 25px;
     }
-    h2 {
-        font-size: 1.5em;
+
+    .weather-details {
+        flex-direction: column;
     }
 
-    li {
-        font-size: 1em;
+    .forecast-day {
+        min-width: calc(50% - 10px);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .container {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    .search-box, .features-box {
+        padding: 20px;
+    }
+
+    .forecast-day {
+        min-width: calc(100% - 10px);
     }
 }
