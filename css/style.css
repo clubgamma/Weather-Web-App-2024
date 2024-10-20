@@ -12,7 +12,7 @@ body {
 }
 
 .container {
-    max-width: 800px;
+    max-width: 1000px;
     width: 90%;
     padding: 30px;
     background-color: rgba(255, 255, 255, 0.9);
@@ -249,6 +249,92 @@ footer {
     margin-right: 10px;
 }
 
+.forecast-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px; 
+}
+
+
+.forecast-card {
+    background: #F4F9F9; 
+    padding: 20px; 
+    border-radius: 55px; 
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s, border 0.3s;
+    position: relative;
+    border: 3px solid transparent;
+    overflow: hidden;
+}
+
+
+.forecast-card:hover {
+    background-color: #ddfaff46; 
+    border-color: #00ACC1; 
+    box-shadow: 0 12px 35px rgba(63, 63, 63, 0.4);
+}
+
+
+.forecast-card h4 {
+    font-size: 2.4em;
+    margin-bottom: 30px;
+    color: #173F5F; 
+}
+
+
+.forecast-card .weather-content {
+    display: flex;
+    justify-content: space-between;  
+    align-items: center;
+}
+
+.forecast-card .temp {
+    font-size: 4.6em;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #173F5F;
+    margin-left: 65px;
+}
+
+.forecast-card .icon {
+    font-size: 5em;
+    margin-left: 20px; 
+    margin-right: 90px;
+}
+
+
+.forecast-card.sunny .icon {
+    color: #ffdf7e;
+}
+
+.forecast-card.rainy .icon {
+    color: #42A5F5;
+}
+
+.forecast-card.cloudy .icon {
+    color: #78909C; 
+}
+
+.forecast-card.snowy .icon {
+    color: #00ACC1; 
+}
+
+.forecast-card .status {
+    font-size: 2em;
+    color: #5A5A89;
+}
+
+
+footer {
+    text-align: center;
+    color: #555;
+    font-size: 2em;
+    margin-top: 40px;
+}
+
+
+
 @media screen and (max-width: 768px) {
     .container {
         width: 95%;
@@ -297,6 +383,23 @@ footer {
     .forecast-day {
         min-width: calc(50% - 10px);
     }
+    
+
+    #city-name {
+        font-size: 2em;
+    }
+
+    .forecast-card h4 {
+        font-size: 1.5em;
+    }
+
+    .forecast-card .temp {
+        font-size: 2.5em;
+    }
+
+    .forecast-card .status {
+        font-size: 1.1em;
+    }
 }
 
 @media screen and (max-width: 480px) {
@@ -315,4 +418,28 @@ footer {
     .forecast-day {
         min-width: calc(100% - 10px);
     }
+    .container {
+        padding: 20px;
+    }
+
+    #city-name {
+        font-size: 1.8em;
+    }
+
+    .forecast-card {
+        padding: 20px;
+    }
+
+    .forecast-card h4 {
+        font-size: 1.3em;
+    }
+
+    .forecast-card .temp {
+        font-size: 2.2em;
+    }
+
+    .forecast-card .status {
+        font-size: 1em;
+    }
 }
+
