@@ -12,7 +12,7 @@ body {
 }
 
 .container {
-    max-width: 1000px;
+    max-width: 1400px;
     width: 90%;
     padding: 30px;
     background-color: rgba(255, 255, 255, 0.9);
@@ -211,12 +211,6 @@ footer {
     margin: 5px 0 0;
 }
 
-.forecast-container {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
-
 .forecast-day {
     text-align: center;
     padding: 10px;
@@ -249,61 +243,6 @@ footer {
     margin-right: 10px;
 }
 
-.forecast-container {
-    display: flex;
-    flex-direction: column;
-    gap: 30px; 
-}
-
-
-.forecast-card {
-    background: #F4F9F9; 
-    padding: 20px; 
-    border-radius: 55px; 
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s, border 0.3s;
-    position: relative;
-    border: 3px solid transparent;
-    overflow: hidden;
-}
-
-
-.forecast-card:hover {
-    background-color: #ddfaff46; 
-    border-color: #00ACC1; 
-    box-shadow: 0 12px 35px rgba(63, 63, 63, 0.4);
-}
-
-
-.forecast-card h4 {
-    font-size: 2.4em;
-    margin-bottom: 30px;
-    color: #173F5F; 
-}
-
-
-.forecast-card .weather-content {
-    display: flex;
-    justify-content: space-between;  
-    align-items: center;
-}
-
-.forecast-card .temp {
-    font-size: 4.6em;
-    font-weight: bold;
-    margin-bottom: 15px;
-    color: #173F5F;
-    margin-left: 65px;
-}
-
-.forecast-card .icon {
-    font-size: 5em;
-    margin-left: 20px; 
-    margin-right: 90px;
-}
-
-
 .forecast-card.sunny .icon {
     color: #ffdf7e;
 }
@@ -320,20 +259,78 @@ footer {
     color: #00ACC1; 
 }
 
-.forecast-card .status {
-    font-size: 2em;
-    color: #5A5A89;
-}
-
-
 footer {
     text-align: center;
     color: #555;
     font-size: 2em;
     margin-top: 40px;
 }
+.forecast-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin: 0 auto;
+    
+}
+
+.forecast-card {
+    flex: 1 1 1 calc(33.333% - 20px); 
+    
+    margin-bottom: 20px; 
+    background: #F4F9F9; 
+    padding: 20px; 
+    border-radius: 55px; 
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s, border 0.3s;
+    position: relative;
+    border: 3px solid transparent;
+    
+}
 
 
+.forecast-card:hover {
+    background-color: #ddfaff46; 
+    border-color: #00ACC1; 
+    box-shadow: 0 12px 35px rgba(63, 63, 63, 0.4);
+}
+.forecast-card .icon {
+    font-size: 3em;
+    margin-left: 20px; 
+    margin-right: 40px;
+} 
+.forecast-card .temp {
+    font-size: 4.6em;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #173F5F;
+    margin-left: 65px;
+}
+
+
+.forecast-card h4 {
+    font-size: 2.2em;
+    margin-bottom: 30px;
+    color: #005da9; 
+}
+
+.forecast-card .weather-content {
+    display: flex;
+    justify-content: space-between;  
+    align-items: center;
+}
+
+.forecast-card .temp {
+    font-size: 3em;
+    font-weight: bold;
+    color: #005da9; 
+}
+
+.forecast-card .status {
+    margin-top: 10px;
+    font-size: 2em;
+    color: #666;
+}
 
 @media screen and (max-width: 768px) {
     .container {
@@ -388,7 +385,9 @@ footer {
     #city-name {
         font-size: 2em;
     }
-
+    .forecast-card {
+        width: calc(50% - 20px); 
+    }
     .forecast-card h4 {
         font-size: 1.5em;
     }
@@ -427,8 +426,9 @@ footer {
     }
 
     .forecast-card {
-        padding: 20px;
-    }
+        width: 100%;
+        
+    } 
 
     .forecast-card h4 {
         font-size: 1.3em;
