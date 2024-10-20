@@ -50,7 +50,7 @@ function getForecastByCity(city) {
     })
     .then((data) => {
       sessionStorage.setItem("forecastData", JSON.stringify(data));
-      window.location = "http://127.0.0.1:5500/Weather-Web-App-2024/weather_info.html"; 
+      window.location = "https://clubgamma.github.io/Weather-Web-App-2024/weather_info.html"; 
     })
     .catch((error) => {
       alert(`${city} not found. Please try again...`);
