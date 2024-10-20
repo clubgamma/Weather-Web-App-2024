@@ -11,8 +11,8 @@
     <div class="container">
         <div id="weather-data" class="visible">
             <div class="city-info">
-                <h2 id="city-name">City Name</h2>
-                <p id="current-date">Day, Current Date</p>
+                <h2 id="city-name"></h2>
+                <p id="current-date"></p>
             </div>
 
             <main>
@@ -23,16 +23,17 @@
                             <i id="weather-icon" class="fas fa-sun fa-4x"></i>
                         </div>
                         <div class="weather-text">
-                            <p id="temperature" class="temperature">25°C</p>
-                            <p id="description" class="description">Sunny</p>
+                            <p id="temperature" class="temperature"></p>
+                            <p id="weather-desc" class="description"></p>
                         </div>
                     </div>
                 </section>
 
                 <section class="forecast">
                     <h3><i class="fas fa-calendar-alt"></i> 5-Day Forecast</h3>
-                    <div id="forecast-info" class="forecast-container">
-                        <!-- Forecast info will be populated here -->
+                    <div id="forecast-info" class="forecast-container" style="display: flex; flex-direction: column;">
+                        <div id="forecasts" style="display: flex; flex-direction: column;">
+                        </div>
                     </div>
                 </section>
 
@@ -41,11 +42,12 @@
                     <div id="rain-humidity-info" class="weather-details">
                         <div class="detail-item">
                             <i class="fas fa-umbrella"></i>
-                            <p id="chance-of-rain">Chance of Rain: 20%</p>
+                            <p id="chance-of-rain"></p>
                         </div>
                         <div class="detail-item">
                             <i class="fas fa-water"></i>
-                            <p id="humidity">Humidity: 60%</p>
+                            <p>Humidity :</p>
+                            <p id="humidity"></p>
                         </div>
                     </div>
                 </section>
@@ -56,5 +58,7 @@
             <p>&copy; 2023 Weather.io. All rights reserved.</p>
         </footer>
     </div>
+
+    <script src="./index.js"></script>
 </body>
 </html>
