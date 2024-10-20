@@ -4,27 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Weather.io</title>
 </head>
 <body>
     <div class="container">
+        <header>
+            <h1><i class="fas fa-cloud-sun"></i> Weather.io</h1>
+        </header>
+
         <div class="search-box">
-            <h1>Weather.io</h1>
-            <p>Experience the power of precise weather forecasting at your fingertips. Weather.io brings you real-time, accurate weather information from around the globe. Whether you're planning a trip, preparing for your day, or just curious about the conditions outside, we've got you covered with detailed forecasts and user-friendly features.</p>
+            <h2><i class="fas fa-search-location"></i> Enter a City</h2>
             <div class="search-input">
                 <input type="text" id="city-input" placeholder="Enter city name">
                 <button id="search-btn">Search</button>
             </div>
         </div>
-        <div class="features-box">
-            <h2>Features</h2>
-            <ul>
-                <li>Real-time weather data</li>
-                <li>5-day forecast</li>
-                <li>Temperature, humidity, and wind information</li>
-                <li>Beautiful weather icons</li>
-            </ul>
-        </div>
+
+        <footer>
+            <p>&copy; 2023 Weather.io. All rights reserved.</p>
+        </footer>
     </div>
 
     <script src="./index.js"></script>

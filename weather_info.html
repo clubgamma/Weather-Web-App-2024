@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Weather Information</title>
+</head>
+<body>
+    <div class="container">
+        <div id="weather-data" class="visible">
+            <div class="city-info">
+                <h2 id="city-name">City Name</h2>
+                <p id="current-date">Day, Current Date</p>
+            </div>
+
+            <main>
+                <section class="current-weather">
+                    <h3><i class="fas fa-temperature-high"></i> Current Weather</h3>
+                    <div id="weather-info" class="weather-details">
+                        <div class="weather-icon">
+                            <i id="weather-icon" class="fas fa-sun fa-4x"></i>
+                        </div>
+                        <div class="weather-text">
+                            <p id="temperature" class="temperature">25°C</p>
+                            <p id="description" class="description">Sunny</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="forecast">
+                    <h3><i class="fas fa-calendar-alt"></i> 5-Day Forecast</h3>
+                    <div id="forecast-info" class="forecast-container">
+                        <!-- Forecast info will be populated here -->
+                    </div>
+                </section>
+
+                <section class="rain-humidity">
+                    <h3><i class="fas fa-tint"></i> Rain & Humidity</h3>
+                    <div id="rain-humidity-info" class="weather-details">
+                        <div class="detail-item">
+                            <i class="fas fa-umbrella"></i>
+                            <p id="chance-of-rain">Chance of Rain: 20%</p>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-water"></i>
+                            <p id="humidity">Humidity: 60%</p>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <footer>
+            <p>&copy; 2023 Weather.io. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
