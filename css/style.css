@@ -290,6 +290,13 @@ footer {
     
 }
 
+.forecasts-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin: 0 auto;
+}
+
 
 .forecast-card:hover {
     background-color: #ddfaff46; 
