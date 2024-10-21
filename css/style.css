@@ -1,3 +1,5 @@
+
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
 body {
@@ -12,7 +14,7 @@ body {
 }
 
 .container {
-    max-width: 1400px;
+    max-width: 1200px;
     width: 90%;
     padding: 30px;
     background-color: rgba(255, 255, 255, 0.9);
@@ -281,7 +283,7 @@ footer {
     padding: 20px; 
     border-radius: 55px; 
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    text-align: left;
     transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s, border 0.3s;
     position: relative;
     border: 3px solid transparent;
@@ -296,20 +298,20 @@ footer {
 }
 .forecast-card .icon {
     font-size: 3em;
-    margin-left: 20px; 
-    margin-right: 40px;
+    margin-left: 125px; 
+     margin-right: 20px; 
 } 
 .forecast-card .temp {
     font-size: 4.6em;
     font-weight: bold;
     margin-bottom: 15px;
     color: #173F5F;
-    margin-left: 65px;
+   
 }
 
 
 .forecast-card h4 {
-    font-size: 2.2em;
+    font-size: 1.2em;
     margin-bottom: 30px;
     color: #005da9; 
 }
@@ -328,8 +330,9 @@ footer {
 
 .forecast-card .status {
     margin-top: 10px;
-    font-size: 2em;
+    font-size: 1.2em;
     color: #666;
+    text-align: left;
 }
 
 @media screen and (max-width: 768px) {
