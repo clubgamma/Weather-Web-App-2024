@@ -101,7 +101,7 @@ function populateForecasts() {
     const date = new Date(forecast.dt * 1000); 
     const day = daysOfWeek[date.getDay()];
     const temperature = forecast.main.temp;
-    const weatherDescription = forecast.weather[0].description;
+    const weatherDescription = forecast.weather[0].description.charAt(0).toUpperCase() + forecast.weather[0].description.slice(1);
     const icon = forecast.weather[0].icon;
 
     const forecastElement = document.createElement('div');
