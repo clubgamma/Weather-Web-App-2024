@@ -33,7 +33,6 @@ function getWeatherByCity(city) {
       sessionStorage.setItem("weatherData", JSON.stringify(data));
     })
     .catch((error) => {
-      alert(`${city} not found. Please try again...`);
       cityInput.value = "";
     });
 }
