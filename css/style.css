@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
 body {
@@ -276,16 +275,20 @@ footer {
 
 .forecast-card {
     flex: 1 1 1 calc(33.333% - 20px); 
-    
     margin-bottom: 20px; 
     background: #F4F9F9; 
     padding: 20px; 
-    border-radius: 55px; 
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    text-align: left;
+    border-radius: 20px; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center; 
     transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s, border 0.3s;
     position: relative;
     border: 3px solid transparent;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 200px;
+    height: 200px;
     
 }
 .forecasts-row {
@@ -303,8 +306,9 @@ footer {
 }
 .forecast-card .icon {
     font-size: 3em;
-    margin-left: 125px; 
-     margin-right: 20px; 
+    margin-left: 100px; 
+    margin-right: 20px; 
+
 } 
 .forecast-card .temp {
     font-size: 4.6em;
@@ -323,22 +327,24 @@ footer {
 
 .forecast-card .weather-content {
     display: flex;
-    justify-content: space-between;  
     align-items: center;
+    justify-content: center;
+    margin-top: 10px;
 }
 
 .forecast-card .temp {
-    font-size: 3em;
+    font-size: 2.5em;
     font-weight: bold;
     color: #005da9; 
 }
 
 .forecast-card .status {
-    margin-top: 10px;
+    margin-top: 5px;
     font-size: 1.2em;
     color: #666;
-    text-align: left;
+    text-align: center;
 }
+
 
 @media screen and (max-width: 768px) {
     .container {
@@ -450,4 +456,3 @@ footer {
         font-size: 1em;
     }
 }
-

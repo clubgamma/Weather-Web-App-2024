@@ -3,7 +3,6 @@ const apiKey = "91181b4ccb7f36e6b27aefa8bb9b5624";
 const searchBtn = document.getElementById("search-btn");
 const cityInput = document.getElementById("city-input");
 const dateTime = document.getElementById("current-date");
-const forecasts = document.getElementById("forecasts");
 let forecastInfo = []; 
 
 if (searchBtn) {
@@ -24,7 +23,6 @@ if (searchBtn) {
   });
 }
 
-// Function to fetch weather data by city name
 function getWeatherByCity(city) {
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
 
@@ -57,7 +55,7 @@ function getForecastByCity(city) {
     })
     .then((data) => {
       sessionStorage.setItem("forecastData", JSON.stringify(data));
-      window.location = "https://clubgamma.github.io/Weather-Web-App-2024/weather_info.html"; 
+      window.location = "weather_info.html"; 
     })
     .catch((error) => {
       alert(`${city} not found. Please try again...`);
@@ -75,11 +73,8 @@ window.onload = function () {
   }
 
   if (forecastData && forecastData.list) {
-    for (let i = 0; i < forecastData.list.length; i += 7) { 
-      forecastInfo.push(forecastData.list[i]);
-    }
-
-    populateForecasts();
+    forecastInfo = forecastData.list.filter((_, i) => i % 8 === 0).slice(0, 5); 
+    populateForecastCards();
   }
 };
 
@@ -102,31 +97,51 @@ function updateWeatherInfo(data) {
   }
 }
 
-function populateForecasts() {
-  forecasts.innerHTML = ""; 
+function populateForecastCards() {
+  const forecastCards = document.querySelectorAll('.forecast-card');
 
-  for (let forecast of forecastInfo) {
+  forecastCards.forEach((card, index) => {
+    const forecast = forecastInfo[index];
     const date = new Date(forecast.dt * 1000); 
     const day = daysOfWeek[date.getDay()];
-    const temperature = forecast.main.temp;
+    const temperature = `${Math.round(forecast.main.temp)}°C`;
     const weatherDescription = forecast.weather[0].description;
-    const icon = forecast.weather[0].icon;
+    const iconClass = getWeatherIconClass(forecast.weather[0].icon);
 
-    const forecastElement = document.createElement('div');
-    forecastElement.classList.add('forecast');
-    forecastElement.style.display = "flex";
-    forecastElement.style.justifyContent = "space-between";
-    forecastElement.style.padding = "5px"; 
-    forecastElement.style.borderRadius = "5px"; 
+    const dayElem = card.querySelector('.day');
+    const tempElem = card.querySelector('.temp');
+    const iconElem = card.querySelector('.icon');
+    const statusElem = card.querySelector('.status');
 
-    forecastElement.innerHTML = `
-      <div class="forecast-date" style="padding: 2px; border-radius: 5px;">${day}</div>
-      <div class="forecast-desc" style="padding: 2px; border-radius: 5px;">${weatherDescription}</div> 
-      <div class="forecast-temp" style="padding: 2px; border-radius: 5px;">${temperature} °C</div>
-    `;
+    dayElem.textContent = day;
+    tempElem.textContent = temperature;
+    iconElem.className = `fas fa-3x ${iconClass}`;
+    statusElem.textContent = weatherDescription;
+  });
+}
 
-    forecasts.appendChild(forecastElement);
-  }
+function getWeatherIconClass(icon) {
+  const iconMapping = {
+    "01d": "fa-sun",
+    "01n": "fa-moon",
+    "02d": "fa-cloud-sun",
+    "02n": "fa-cloud-moon",
+    "03d": "fa-cloud",
+    "03n": "fa-cloud",
+    "04d": "fa-cloud-meatball",
+    "04n": "fa-cloud-meatball",
+    "09d": "fa-cloud-showers-heavy",
+    "09n": "fa-cloud-showers-heavy",
+    "10d": "fa-cloud-sun-rain",
+    "10n": "fa-cloud-moon-rain",
+    "11d": "fa-bolt",
+    "11n": "fa-bolt",
+    "13d": "fa-snowflake",
+    "13n": "fa-snowflake",
+    "50d": "fa-smog",
+    "50n": "fa-smog"
+  };
+  return iconMapping[icon] || "fa-cloud";
 }
 
 const currentDate = new Date();
