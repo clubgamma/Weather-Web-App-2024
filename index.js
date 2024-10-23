@@ -10,9 +10,15 @@ if (searchBtn) {
   searchBtn.addEventListener("click", function () {
     const city = cityInput.value.trim();
     if (city !== "") {
-      getWeatherByCity(city);
-      getForecastByCity(city);
-    } else {
+      getWeatherByCity(city)
+        .then(() => {
+          //console.log("Fetching weather data for:", city);
+          return getForecastByCity(city);
+        })
+        .catch((error) => {
+          console.error("Error in weather/fetch: ", error);
+        });
+    }  else {
       alert("Please enter a city name.");
     }
   });
@@ -22,7 +28,7 @@ if (searchBtn) {
 function getWeatherByCity(city) {
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
 
-  fetch(apiUrl)
+  return fetch(apiUrl)
     .then((response) => {
       if (!response.ok) {
         throw new Error("City not found");
@@ -35,13 +41,14 @@ function getWeatherByCity(city) {
     .catch((error) => {
       alert(`${city} not found. Please try again...`);
       cityInput.value = "";
+      throw error;
     });
 }
 
 function getForecastByCity(city) {
   const apiUrl2 = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${apiKey}`;
 
-  fetch(apiUrl2)
+  return fetch(apiUrl2)
     .then((response) => {
       if (!response.ok) {
         throw new Error("City not found");
@@ -55,6 +62,7 @@ function getForecastByCity(city) {
     .catch((error) => {
       alert(`${city} not found. Please try again...`);
       cityInput.value = "";
+      throw error;
     });
 }
 
