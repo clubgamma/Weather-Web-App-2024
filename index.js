@@ -3,7 +3,41 @@ const apiKey = "91181b4ccb7f36e6b27aefa8bb9b5624";
 const searchBtn = document.getElementById("search-btn");
 const cityInput = document.getElementById("city-input");
 const dateTime = document.getElementById("current-date");
+const suggestionsBox = document.getElementById('suggestions');
+const suggestions = document.getElementsByClassName('suggestion');
 let forecastInfo = []; 
+
+if (cityInput) {
+  cityInput.addEventListener('input', async function() {
+    const query = cityInput.value.trim();
+    if (query.length > 0) {
+        const suggestions = await fetchCities(query);
+        displaySuggestions(suggestions);
+    } else {
+        suggestionsBox.innerHTML = '';
+    }
+  });
+}
+
+async function fetchCities(query) {
+  const response = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=${apiKey}`);
+  const cities = await response.json();
+  return cities.map(city => `${city.name}, ${city.country}`);
+}
+
+function displaySuggestions(suggestions) {
+  suggestionsBox.innerHTML = '';
+  suggestions.forEach(suggestion => {
+      const li = document.createElement('li');
+      li.classList.add('suggestion');
+      li.textContent = suggestion;
+      suggestionsBox.appendChild(li);
+      li.addEventListener('click', function() {
+        cityInput.value = suggestion;
+        suggestionsBox.innerHTML = '';
+      })
+  });
+}
 
 if (searchBtn) {
   searchBtn.addEventListener("click", function () {
