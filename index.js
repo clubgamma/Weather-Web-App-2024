@@ -118,7 +118,7 @@ function getForecastByCity(city) {
 window.onload = function () {
   const weatherData = JSON.parse(sessionStorage.getItem("weatherData"));
   const forecastData = JSON.parse(sessionStorage.getItem("forecastData"));
-  console.log(weatherData);
+  // console.log(weatherData);
   if (weatherData && forecastData) {
     updateWeatherInfo(weatherData);
   }
