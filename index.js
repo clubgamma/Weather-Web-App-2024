@@ -5,9 +5,8 @@ const cityInput = document.getElementById("city-input");
 const dateTime = document.getElementById("current-date");
 let forecastInfo = []; 
 
-if (searchBtn) {
-  searchBtn.addEventListener("click", function () {
-    const city = cityInput.value.trim();
+const fetchData = () => {
+  const city = cityInput.value.trim();
     if (city !== "") {
       getWeatherByCity(city)
         .then(() => {
@@ -20,8 +19,17 @@ if (searchBtn) {
     }  else {
       alert("Please enter a city name.");
     }
-  });
 }
+
+if (searchBtn) {
+  searchBtn.addEventListener("click", fetchData);
+}
+
+cityInput.addEventListener('keyup',(e) => {
+  if(e.key === 'Enter'){
+    fetchData();
+  }
+})
 
 function getWeatherByCity(city) {
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
