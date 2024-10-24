@@ -5,8 +5,17 @@ const cityInput = document.getElementById("city-input");
 const dateTime = document.getElementById("current-date");
 const suggestionsBox = document.getElementById('suggestions');
 const suggestions = document.getElementsByClassName('suggestion');
+const loadingIndicator = document.getElementById("loading");
 let forecastInfo = []; 
 let debounceTimeout;
+
+function showLoading() {
+  loadingIndicator.style.display = "block"; 
+}
+
+function hideLoading() {
+  loadingIndicator.style.display = "none"; 
+}
 
 if (cityInput) {
   cityInput.addEventListener('input', async function() {
@@ -64,6 +73,7 @@ const fetchData = () => {
 
 if (searchBtn) {
   searchBtn.addEventListener("click", fetchData);
+   showLoading();
 }
 
 if(cityInput){
@@ -90,6 +100,7 @@ function getWeatherByCity(city) {
     .catch((error) => {
       alert(`${city} not found. Please try again...`);
       cityInput.value = "";
+      hideLoading();
       throw error;
     });
 }
@@ -106,11 +117,13 @@ function getForecastByCity(city) {
     })
     .then((data) => {
       sessionStorage.setItem("forecastData", JSON.stringify(data));
+      hideLoading();
       window.location = "weather_info.html"; 
     })
     .catch((error) => {
       alert(`${city} not found. Please try again...`);
       cityInput.value = "";
+      hideLoading();
       throw error;
     });
 }
