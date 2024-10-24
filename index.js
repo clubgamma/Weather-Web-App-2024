@@ -4,14 +4,56 @@ const searchBtn = document.getElementById("search-btn");
 const cityInput = document.getElementById("city-input");
 const dateTime = document.getElementById("current-date");
 const forecasts = document.getElementById("forecasts");
-let forecastInfo = []; 
+let forecastInfo = [];
+
+const currentDate = new Date();
+const daysOfWeek = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+
+const monthsOfYear = [
+  "Null",
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+const currentDay = daysOfWeek[currentDate.getDay()];
+const year = currentDate.getFullYear();
+const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+const day = String(currentDate.getDate()).padStart(2, "0");
+const formattedDate = `${day}-${month}-${year}`;
 
 if (searchBtn) {
   searchBtn.addEventListener("click", function () {
+    console.log("Data Loading...");
     const city = cityInput.value.trim();
+    console.log("Search Button Clicked, City: ", city);
     if (city !== "") {
-      getWeatherByCity(city);
-      getForecastByCity(city);
+      Promise.all([getWeatherByCity(city), getForecastByCity(city)])
+        .then(() => {
+          window.location = "./weather_info.html";  
+          dateTime.textContent = `${formattedDate} / ${currentDay}`;
+        })
+        .catch(() => {
+          alert("Something went wrong. Please try again.");
+          cityInput.value = "";
+        });
     } else {
       alert("Please enter a city name.");
     }
@@ -19,10 +61,10 @@ if (searchBtn) {
 }
 
 // Function to fetch weather data by city name
-function getWeatherByCity(city) {
+async function getWeatherByCity(city) {
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
 
-  fetch(apiUrl)
+  return fetch(apiUrl)
     .then((response) => {
       if (!response.ok) {
         throw new Error("City not found");
@@ -30,18 +72,20 @@ function getWeatherByCity(city) {
       return response.json();
     })
     .then((data) => {
+      console.log(`Weather data for ${city}: `, data);
       sessionStorage.setItem("weatherData", JSON.stringify(data));
     })
     .catch((error) => {
       alert(`${city} not found. Please try again...`);
       cityInput.value = "";
+      throw error;
     });
 }
 
-function getForecastByCity(city) {
+async function getForecastByCity(city) {
   const apiUrl2 = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${apiKey}`;
 
-  fetch(apiUrl2)
+  return fetch(apiUrl2)
     .then((response) => {
       if (!response.ok) {
         throw new Error("City not found");
@@ -49,12 +93,13 @@ function getForecastByCity(city) {
       return response.json();
     })
     .then((data) => {
+      console.log(`Forecast data for ${city}: `, data);
       sessionStorage.setItem("forecastData", JSON.stringify(data));
-      window.location = "https://clubgamma.github.io/Weather-Web-App-2024/weather_info.html"; 
     })
     .catch((error) => {
       alert(`${city} not found. Please try again...`);
       cityInput.value = "";
+      throw error; // Rethrow the error so Promise.all will catch it
     });
 }
 
@@ -63,14 +108,15 @@ window.onload = function () {
   const forecastData = JSON.parse(sessionStorage.getItem("forecastData"));
 
   if (weatherData && forecastData) {
+    console.log(weatherData);
+    console.log(forecastData);
     updateWeatherInfo(weatherData);
   }
 
   if (forecastData && forecastData.list) {
-    for (let i = 0; i < forecastData.list.length; i += 7) { 
+    for (let i = 0; i < forecastData.list.length; i += 7) {
       forecastInfo.push(forecastData.list[i]);
     }
-
     populateForecasts();
   }
 };
@@ -95,37 +141,26 @@ function updateWeatherInfo(data) {
 }
 
 function populateForecasts() {
-  forecasts.innerHTML = ""; 
-
   for (let forecast of forecastInfo) {
-    const date = new Date(forecast.dt * 1000); 
-    const day = daysOfWeek[date.getDay()];
-    const temperature = forecast.main.temp;
-    const weatherDescription = forecast.weather[0].description;
-    const icon = forecast.weather[0].icon;
-
-    const forecastElement = document.createElement('div');
-    forecastElement.classList.add('forecast');
-    forecastElement.style.display = "flex";
-    forecastElement.style.justifyContent = "space-between";
-    forecastElement.style.padding = "5px"; 
-    forecastElement.style.borderRadius = "5px"; 
-
+    let iconUrl = `http://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png`;
+    let img = document.createElement("img");
+    img.src = iconUrl;
+    img.alt = forecast.weather[0].description;
+    const date = new Date(forecast.dt * 1000);
+    let dayOfWeek = date.getDay();
+    const forecastElement = document.createElement("div");
+    forecastElement.classList.add("forecast");
     forecastElement.innerHTML = `
-      <div class="forecast-date" style="padding: 2px; border-radius: 5px;">${day}</div>
-      <div class="forecast-desc" style="padding: 2px; border-radius: 5px;">${weatherDescription}</div> 
-      <div class="forecast-temp" style="padding: 2px; border-radius: 5px;">${temperature} °C</div>
+         <div class="forecast-card ${forecast.weather[0].main}">
+              <h4 class="day">${forecast.dt_txt.substring(0, 10)} / ${daysOfWeek[dayOfWeek]}</h4>
+                  <div class="weather-content">
+                      <div class="temp">${forecast.main.temp} °C</div>
+                      <img src="${iconUrl}" style="background-color: #adadad; border-radius: 20px; margin-left: 20px;"></img>
+                  </div>
+              <p class="status">${forecast.weather[0].description}</p>
+          </div>
     `;
 
     forecasts.appendChild(forecastElement);
   }
 }
-
-const currentDate = new Date();
-const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-const currentDay = daysOfWeek[currentDate.getDay()];
-const year = currentDate.getFullYear();
-const month = String(currentDate.getMonth() + 1).padStart(2, "0");
-const day = String(currentDate.getDate()).padStart(2, "0");
-const formattedDate = `${day}-${month}-${year}`;
-dateTime.textContent = `${formattedDate} / ${currentDay}`;
