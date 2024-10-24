@@ -47,7 +47,11 @@ header {
     text-align: center;
     margin-bottom: 40px; /* Increased margin */
 }
-
+.loading {
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: #555; 
+}
 #city-name {
     color: #2193b0;
     font-size: 1.8em;
