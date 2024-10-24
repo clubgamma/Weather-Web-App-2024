@@ -456,3 +456,21 @@ footer {
         font-size: 1em;
     }
 }
+
+#suggestions {
+    list-style: none;
+    z-index: 999;
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+#suggestions li {
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+#suggestions li:hover {   
+    cursor: pointer;
+    background-color: #c0cad4;
+}
