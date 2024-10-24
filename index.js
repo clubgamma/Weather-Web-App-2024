@@ -58,11 +58,15 @@ function displaySuggestions(suggestions) {
 const fetchData = () => {
   const city = cityInput.value.trim();
     if (city !== "") {
+      showLoading(); 
       getWeatherByCity(city)
         .then(() => {
           //console.log("Fetching weather data for:", city);
           return getForecastByCity(city);
         })
+        .then(() => {
+        hideLoading(); 
+       })
         .catch((error) => {
           console.error("Error in weather/fetch: ", error);
           hideLoading();
