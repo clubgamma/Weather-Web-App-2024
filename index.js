@@ -65,6 +65,7 @@ const fetchData = () => {
         })
         .catch((error) => {
           console.error("Error in weather/fetch: ", error);
+          hideLoading();
         });
     }  else {
       alert("Please enter a city name.");
@@ -73,7 +74,6 @@ const fetchData = () => {
 
 if (searchBtn) {
   searchBtn.addEventListener("click", fetchData);
-   showLoading();
 }
 
 if(cityInput){
