@@ -21,6 +21,49 @@ body {
     align-items: center;
 }
 
+/* Default weather icon - neutral orange-yellow */
+.weather-icon i {
+    color: #ffd700; /* Bright gold - more visible and energetic */
+}
+
+/* Forecast cards with specific weather conditions */
+.forecast-card.sunny i {
+    color: #ff9500; /* Warm orange - represents sunlight */
+}
+
+.forecast-card.cloudy i {
+    color: #7b8994; /* Medium gray - represents clouds */
+}
+
+.forecast-card.rainy i {
+    color: #4682b4; /* Steel blue - represents rain */
+}
+
+.forecast-card.snowy i {
+    color: #c8cbcb; /* Light blue-white - represents snow */
+}
+
+.forecast-card.stormy i {
+    color: #484848; /* Dark gray - represents storm clouds */
+}
+
+/* Weather detail icons */
+.detail-item.rain i {
+    color: #0096ff; /* Bright blue - represents rain/water */
+}
+
+.detail-item.humidity i {
+    color: #1e90ff; /* Darker blue - represents moisture */
+}
+
+.detail-item.wind i {
+    color: #87ceeb; /* Sky blue - represents wind/air */
+}
+
+.detail-item.pressure i {
+    color: #778899; /* Slate gray - represents atmospheric pressure */
+}
+
 .weather-container {
     max-width: 1200px;
     width: 90%;
