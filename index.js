@@ -6,20 +6,27 @@ const dateTime = document.getElementById("current-date");
 const suggestionsBox = document.getElementById('suggestions');
 const suggestions = document.getElementsByClassName('suggestion');
 let forecastInfo = []; 
+let debounceTimeout;
 
 if (cityInput) {
   cityInput.addEventListener('input', async function() {
     const query = cityInput.value.trim();
-    if (query.length > 0) {
+
+    clearTimeout(debounceTimeout);
+
+    debounceTimeout = setTimeout(async () => {
+      if (query.length > 0) {
         const suggestions = await fetchCities(query);
         displaySuggestions(suggestions);
-    } else {
+      } else {
         suggestionsBox.innerHTML = '';
-    }
+      }
+    }, 400);
   });
 }
 
 async function fetchCities(query) {
+  console.log('api called');
   const response = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=${apiKey}`);
   const cities = await response.json();
   return cities.map(city => `${city.name}, ${city.country}`);
