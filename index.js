@@ -66,11 +66,13 @@ if (searchBtn) {
   searchBtn.addEventListener("click", fetchData);
 }
 
-cityInput.addEventListener('keyup',(e) => {
-  if(e.key === 'Enter'){
-    fetchData();
-  }
-})
+if(cityInput){
+  cityInput.addEventListener('keyup',(e) => {
+    if(e.key === 'Enter'){
+      fetchData();
+    }
+  })
+}
 
 function getWeatherByCity(city) {
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
@@ -116,7 +118,7 @@ function getForecastByCity(city) {
 window.onload = function () {
   const weatherData = JSON.parse(sessionStorage.getItem("weatherData"));
   const forecastData = JSON.parse(sessionStorage.getItem("forecastData"));
-
+  // console.log(weatherData);
   if (weatherData && forecastData) {
     updateWeatherInfo(weatherData);
   }
