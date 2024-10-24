@@ -3,6 +3,7 @@ const apiKey = "91181b4ccb7f36e6b27aefa8bb9b5624";
 const searchBtn = document.getElementById("search-btn");
 const cityInput = document.getElementById("city-input");
 const dateTime = document.getElementById("current-date");
+const errorMessage = document.getElementById("error-message");//error message
 let forecastInfo = []; 
 
 if (searchBtn) {
@@ -18,7 +19,7 @@ if (searchBtn) {
           console.error("Error in weather/fetch: ", error);
         });
     }  else {
-      alert("Please enter a city name.");
+      displayErrorMessage("Please enter a city name.");
     }
   });
 }
@@ -37,7 +38,7 @@ function getWeatherByCity(city) {
       sessionStorage.setItem("weatherData", JSON.stringify(data));
     })
     .catch((error) => {
-      alert(`${city} not found. Please try again...`);
+      displayErrorMessage(`${city} not found. Please try again...`);
       cityInput.value = "";
       throw error;
     });
@@ -58,11 +59,24 @@ function getForecastByCity(city) {
       window.location = "weather_info.html"; 
     })
     .catch((error) => {
-      alert(`${city} not found. Please try again...`);
+      displayErrorMessage(`${city} not found. Please try again...`);
       cityInput.value = "";
       throw error;
     });
 }
+
+// Function to display error messages on the page
+function displayErrorMessage(message) {
+  errorMessage.textContent = message;
+  errorMessage.style.display = "block"; 
+}
+
+// Function to clear error messages
+function clearErrorMessage() {
+  errorMessage.textContent = "";
+  errorMessage.style.display = "none"; 
+}
+
 
 window.onload = function () {
   const weatherData = JSON.parse(sessionStorage.getItem("weatherData"));
