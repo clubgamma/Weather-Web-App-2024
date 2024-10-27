@@ -7,112 +7,123 @@
     --font-size-p: 1.1em;
     --font-size-city-name: 2.5em; 
     --font-size-current-date: 1.2em; 
-    --font-size-footer: 1em; 
-}
-/* Default weather icon - neutral orange-yellow */
-.weather-icon i {
-    color: #ffd700; /* Bright gold - more visible and energetic */
+    --font-size-footer: 1rem; 
 }
 
-/* Forecast cards with specific weather conditions */
+.weather-icon i {
+    color: #ffd700; 
+}
+
 .forecast-card.sunny i {
-    color: #ff9500; /* Warm orange - represents sunlight */
+    color: #ff9500; 
 }
 
 .forecast-card.cloudy i {
-    color: #7b8994; /* Medium gray - represents clouds */
+    color: #7b8994; 
 }
 
 .forecast-card.rainy i {
-    color: #4682b4; /* Steel blue - represents rain */
+    color: #4682b4; 
 }
 
 .forecast-card.snowy i {
-    color: #c8cbcb; /* Light blue-white - represents snow */
+    color: #c8cbcb; 
 }
 
 .forecast-card.stormy i {
-    color: #484848; /* Dark gray - represents storm clouds */
+    color: #484848; 
 }
 
-/* Weather detail icons */
 .detail-item.rain i {
-    color: #0096ff; /* Bright blue - represents rain/water */
+    color: #0096ff; 
 }
 
 .detail-item.humidity i {
-    color: #1e90ff; /* Darker blue - represents moisture */
+    color: #1e90ff; 
 }
 
 .detail-item.wind i {
-    color: #87ceeb; /* Sky blue - represents wind/air */
+    color: #87ceeb; 
 }
 
 .detail-item.pressure i {
-    color: #778899; /* Slate gray - represents atmospheric pressure */
+    color: #778899; 
 }
 
 body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 40px 0;
-    background: linear-gradient(135deg, #6dd5ed, #2193b0);
+    background: #BFD8E7;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    color: black;
+    overflow: hidden;
 }
 
+.weather-information-card{
+    display: flex;
+    flex-direction: column;
+}
 .weather-container {
     max-width: 1200px;
-    width: 90%;
+    width: 616px;
+    height: 660px;
     padding: 30px;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: white;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    margin: 40px auto;
+    margin: 10px auto;
+    transform: translateY(-2rem);
 }
 
 .city-info {
+    display: flex;
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: -14px;
 }
-
+.city-info i{
+    position: absolute;
+    top: 10px;
+    color: #06283D;
+    font-size: 38px;
+}
 #city-name {
-    color: #2193b0;
     font-size: var(--font-size-city-name);
-    margin: 0;
+    margin-left: 2rem;
+    margin-top: 0;
 }
 
 #current-date {
-    color: #555;
     font-size: var(--font-size-current-date);
     margin: 15px 0 0;
+    margin-left: auto;
 }
-
+.current-weather{
+    box-shadow: none;
+}
 main section {
-    background-color: #f0f8ff;
     border-radius: 15px;
-    padding: 25px;
-    margin-bottom: 40px;
+    margin-bottom: 1px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-main section:hover {
-    transform: translateY(-5px);
-    background-color: #e6f3ff;
+.current-weather {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
 }
 
-h1, h2, h3 {
-    color: #2193b0;
+.weather-icon {
+    order: 1;
+    margin-bottom: 10px; 
+    transform: translateX(2rem);
 }
-
 .weather-details {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    padding: 20px;
+    padding: 8px;
     flex-wrap: wrap;
 }
 #weather-data {
@@ -138,14 +149,24 @@ h1, h2, h3 {
 .temperature {
     font-size: 2.5em;
     font-weight: 600;
-    color: #2193b0;
     margin: 0;
 }
 
 .description {
     font-size: 1.2em;
     color: #555;
-    margin: 5px 0 0;
+}
+
+#rain-humidity-info{
+    display: flex;
+    font-size: 22px;
+    font-weight: 500;
+}
+.rain-humidity{
+    margin-top: 0%;
+}
+.rain{
+    margin-left: auto;
 }
 
 .detail-item {
@@ -168,49 +189,8 @@ h1, h2, h3 {
     margin: 0 auto;
 }
 
-.forecast-card {
-    flex: 1 1 1 calc(33.333% - 20px); 
-    margin-bottom: 20px; 
-    background: #F4F9F9; 
-    padding: 20px; 
-    border-radius: 20px; 
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center; 
-    transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s, border 0.3s;
-    position: relative;
-    border: 3px solid transparent;
+.forcast-title{
     display: flex;
-    flex-direction: column;
-    text-align: center;
-    width: 200px;
-    height: 200px;
-}
-
-.forecast-card:hover {
-    background-color: #ddfaff46; 
-    border-color: #00ACC1; 
-    box-shadow: 0 12px 35px rgba(63, 63, 63, 0.4);
-}
-
-
-.forecast-day {
-    text-align: center;
-    padding: 10px;
-    background-color: rgba(33, 147, 176, 0.1);
-    border-radius: 10px;
-    margin: 5px;
-    flex: 1;
-    min-width: 80px;
-}
-
-.forecast-day p {
-    margin: 5px 0;
-}
-
-.forecast-day i {
-    font-size: 1.5em;
-    color: #2193b0;
-    margin: 10px 0;
 }
 
 .forecast-card.sunny .icon {
@@ -230,7 +210,6 @@ h1, h2, h3 {
 }
 
 
-
 .forecasts-row {
     display: flex;
     flex-wrap: wrap;
@@ -239,52 +218,11 @@ h1, h2, h3 {
 }
 
 
-.forecast-card .icon {
-    font-size: 3em;
-    margin-left: 100px; 
-    margin-right: 20px; 
-
-} 
-.forecast-card .temp {
-    font-size: 4.6em;
+.footer {
+    text-align: center; 
+    color: black;
     font-weight: bold;
-    margin-bottom: 15px;
-    color: #173F5F;
-   
-}
-
-
-.forecast-card h4 {
-    font-size: 1.2em;
-    margin-bottom: 30px;
-    color: #005da9; 
-}
-
-.forecast-card .weather-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 10px;
-}
-
-.forecast-card .temp {
-    font-size: 2.5em;
-    font-weight: bold;
-    color: #005da9; 
-}
-
-.forecast-card .status {
-    margin-top: 5px;
-    font-size: 1.2em;
-    color: #666;
-    text-align: center;
-}
-
-footer {
-    text-align: center;
-    color: #555;
     font-size: var(--font-size-footer);
-    margin-top: 30px;
 }
 
 /* Responsive styles */
