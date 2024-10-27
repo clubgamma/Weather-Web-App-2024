@@ -10,22 +10,32 @@
     --font-size-footer: 1em; 
 }
 
+html {
+    scrollbar-width: none;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 40px 0;
-    background: linear-gradient(135deg, #6dd5ed, #2193b0);
+    background: #BFD8E7;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    color: black;
+    overflow: auto;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
 }
 
 .container {
     max-width: 1200px;
     width: 90%;
     padding: 30px;
-    background-color: rgba(255, 255, 255, 0.9);
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     margin: 40px auto;
@@ -39,8 +49,12 @@ header {
     margin-bottom: 30px;
 }
 
+.search-container{
+    width: 590px;
+    height: 660px;
+}
 .search-box, .features-box {
-    background-color: #f0f8ff; 
+    background-color: #FFFFFF; 
     border-radius: 15px;
     padding: 25px;
     margin-bottom: 25px;
@@ -50,43 +64,67 @@ header {
 
 .search-box:hover, .features-box:hover {
     transform: translateY(-5px);
-    background-color: #e6f3ff;
+    background-color: #f1f1f1;
 }
-
+.search-box input::placeholder{
+    font-size: 20px;
+    font-weight: 500;
+    color: #06283D;
+    text-transform: capitalize;
+}
+.search-box input{
+    font-size: 30px;
+}
 #search-btn {
     padding: 12px 25px;
     font-size: 16px;
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
-    background-color: #2193b0;
-    color: white;
     border: none;
     border-radius: 0 25px 25px 0;
     cursor: pointer;
     transition: background-color 0.3s ease;
     display: flex;
     align-items: center; 
-}
-
-#search-btn i {
-    margin-right: 8px; 
+    font-size: larger;
+    border: 2px solid #2193b0;
 }
 
 #search-btn:hover {
-    background-color: #1c7a94;
+    border: 2px solid #2193b0;
+    background-color: #fffdfd;
 }
 
 .city-info {
     text-align: center;
-    margin-bottom: 40px; /* Increased margin */
+    margin-bottom: 40px; 
 }
+
+#suggestions {
+    list-style: none;
+    z-index: 999;
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+#suggestions li {
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+#suggestions li:hover {   
+    cursor: pointer;
+    background-color: #c0cad4;
+}
+
+
+
 .loading {
     margin-top: 10px;
-    font-size: 1.2em;
-    color: #555; 
+    font-size: 1.2em; 
 }
 #city-name {
-    color: #2193b0;
     font-size: var(--font-size-city);
     margin: 0;
 }
@@ -94,7 +132,7 @@ header {
 #current-date {
     color: #555;
      font-size: var(--font-size-date);
-    margin: 15px 0 0; /* Increased top margin */
+    margin: 15px 0 0;
 }
 
 #change-city-btn {
@@ -118,7 +156,7 @@ main section {
     background-color: #f0f8ff;
     border-radius: 15px;
     padding: 25px;
-    margin-bottom: 40px; /* Increased margin */
+    margin-bottom: 40px; 
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s ease, background-color 0.3s ease;
 }
@@ -134,6 +172,20 @@ h1 {
     font-weight: 700;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
     margin: 0;
+}
+
+h2 {
+    color: #2193b0;
+    margin-bottom: 15px;
+    font-size: var(--font-size-h2);
+    font-weight: 600;
+}
+
+h3 {
+    color: #2193b0;
+    margin-bottom: 15px;
+    font-size: var(--font-size-h3);
+    font-weight: 600;
 }
 
 p {
@@ -165,42 +217,12 @@ p {
     border-color: #2193b0;
 }
 
-#search-btn {
-    padding: 12px 25px;
-    font-size: 16px;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 600;
-    background-color: #2193b0;
-    color: white;
-    border: none;
-    border-radius: 0 25px 25px 0;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-#search-btn:hover {
-    background-color: #1c7a94;
-}
-
-h2 {
-    color: #2193b0;
-    margin-bottom: 15px;
-    font-size: var(--font-size-h2);
-    font-weight: 600;
-}
-
-h3 {
-    color: #2193b0;
-    margin-bottom: 15px;
-    font-size: var(--font-size-h3);
-    font-weight: 600;
-}
-
-footer {
+footer p{
     text-align: center;
-    color: #555;
+    color: black;
     font-size: var(--font-size-footer);
     margin-top: 30px;
+    font-weight: bold;
 }
 
 .hidden {
@@ -276,38 +298,4 @@ footer {
     #city-name {
         font-size: 1.8em;
     }
-}
-
-#suggestions {
-    list-style: none;
-    z-index: 999;
-    position: relative;
-    top: 0;
-    left: 0;
-}
-
-#suggestions li {
-    padding: 5px 10px;
-    border-radius: 5px;
-}
-
-#suggestions li:hover {   
-    cursor: pointer;
-    background-color: #c0cad4;
-}
-
-/* Hide scrollbar for Webkit browsers */
-::-webkit-scrollbar {
-    width: 0px;
-    background: transparent;
-}
-
-/* Hide scrollbar for Firefox */
-html {
-    scrollbar-width: none;
-}
-
-/* Allow scrolling */
-body {
-    overflow: auto;
 }
