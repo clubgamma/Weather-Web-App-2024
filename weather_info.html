@@ -1,111 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/information.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/information.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
     <title>Weather Information</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="weather-container">
-        <div id="weather-data" class="visible">
-            <div class="city-info">
-                <h2 id="city-name"></h2>
-                <p id="current-date"></p>
-            </div>
-
-            <main>
-                <section class="current-weather">
-                    <h3><i class="fas fa-temperature-high"></i> Current Weather</h3>
-                    <div id="weather-info" class="weather-details">
-                        <div class="weather-icon">
-                            <i id="weather-icon" class="fas fa-sun fa-4x"></i>
-                        </div>
-                        <div class="weather-text">
-                            <p id="temperature" class="temperature"></p>
-                            <p id="weather-desc" class="description"></p>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="forecast">
-                    <h3><i class="fas fa-calendar-alt"></i> 5-Day Forecast</h3>
-                    <div id="forecast-info" class="forecast-container">
-                        <div id="forecasts" class="forecasts-row">
-                            <div class="forecast-card sunny">
-                                <h4 class="day">Monday, October 21</h4>
-                                <div class="weather-content">
-                                    <div class="temp">24°C</div>
-                                    <i class="fas fa-cloud-sun fa-3x icon"></i>
-                                </div>
-                                <p class="status">Partly Cloudy</p>
-                            </div>
-                            <div class="forecast-card cloudy">
-                                <h4 class="day">Tuesday, October 21</h4>
-
-                                <div class="weather-content">
-                                    <div class="temp">22°C</div>
-                                    <i class="fas fa-cloud fa-3x icon"></i>
-                                </div>
-                                <p class="status">Cloudy</p>
-                            </div>
-                            <div class="forecast-card rainy">
-                                <h4 class="day">Wednesday, October 21</h4>
-
-                                <div class="weather-content">
-                                    <div class="temp">20°C</div>
-                                    <i class="fas fa-cloud-rain fa-3x icon"></i>
-                                </div>
-                                <p class="status">Rainy</p>
-                            </div>
-                            <div class="forecast-card snowy">
-                                <h4 class="day">Thursday, October 21</h4>
-
-                                <div class="weather-content">
-                                    <div class="temp">-2°C</div>
-                                    <i class="fas fa-snowflake fa-3x icon"></i>
-                                </div>
-                                <p class="status">Snowy</p>
-                            </div>
-                            <div class="forecast-card stormy">
-                                <h4 class="day">Friday, October 21</h4>
-
-                                <div class="weather-content">
-                                    <div class="temp">18°C</div>
-                                    <i class="fas fa-bolt fa-3x icon"></i>
-                                </div>
-                                <p class="status">Stormy</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="rain-humidity">
-                    <h3><i class="fas fa-tint"></i> Rain & Humidity</h3>
-                    <div id="rain-humidity-info" class="weather-details">
-                        <div class="detail-item">
-                            <i class="fas fa-umbrella"></i>
-                            <p id="chance-of-rain"></p>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-water"></i>
-                            <p>Humidity :</p>
-                            <p id="humidity"></p>
-                        </div>
-                    </div>
-                </section>
-            </main>
+      <div id="weather-data" class="visible">
+        <div class="city-info">
+          <h2 id="city-name"></h2>
+          <p id="current-date"></p>
         </div>
 
-        <footer>
-            <p>&copy; 2024 Weather.io. All rights reserved.</p>
-        </footer>
+        <main>
+          <section class="current-weather">
+            <h3><i class="fas fa-temperature-high"></i> Current Weather</h3>
+            <div id="weather-info" class="weather-details">
+              <div class="weather-icon">
+                <i id="weather-icon" class="fas fa-sun fa-4x"></i>
+              </div>
+              <div class="weather-text">
+                <p id="temperature" class="temperature"></p>
+                <p id="weather-desc" class="description"></p>
+              </div>
+            </div>
+          </section>
+
+          <section class="forecast">
+            <h3><i class="fas fa-calendar-alt"></i> 5-Day Forecast</h3>
+            <div id="forecast-info" class="forecast-container">
+              <div id="forecasts" class="forecasts-row">
+                <div class="forecast-card sunny">
+                  <h4 class="day">Monday, October 21</h4>
+                  <div class="weather-content">
+                    <div class="temp">24°C</div>
+                    <i class="fas fa-cloud-sun fa-3x icon"></i>
+                  </div>
+                  <p class="status">Partly Cloudy</p>
+                </div>
+                <div class="forecast-card cloudy">
+                  <h4 class="day">Tuesday, October 21</h4>
+
+                  <div class="weather-content">
+                    <div class="temp">22°C</div>
+                    <i class="fas fa-cloud fa-3x icon"></i>
+                  </div>
+                  <p class="status">Cloudy</p>
+                </div>
+                <div class="forecast-card rainy">
+                  <h4 class="day">Wednesday, October 21</h4>
+
+                  <div class="weather-content">
+                    <div class="temp">20°C</div>
+                    <i class="fas fa-cloud-rain fa-3x icon"></i>
+                  </div>
+                  <p class="status">Rainy</p>
+                </div>
+                <div class="forecast-card snowy">
+                  <h4 class="day">Thursday, October 21</h4>
+
+                  <div class="weather-content">
+                    <div class="temp">-2°C</div>
+                    <i class="fas fa-snowflake fa-3x icon"></i>
+                  </div>
+                  <p class="status">Snowy</p>
+                </div>
+                <div class="forecast-card stormy">
+                  <h4 class="day">Friday, October 21</h4>
+
+                  <div class="weather-content">
+                    <div class="temp">18°C</div>
+                    <i class="fas fa-bolt fa-3x icon"></i>
+                  </div>
+                  <p class="status">Stormy</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="forecast">
+            <h3>
+              <i
+                class="fa-solid fa-chart-line"
+                style="
+                  height: 30px;
+                  width: 30px;
+                  font-size: x-large;
+                  margin-right: 5px;
+                "
+              ></i>
+              Timeline Of Forecast
+            </h3>
+            <div id="chart" style="width: 100%">
+              <canvas id="myChart"></canvas>
+            </div>
+          </section>
+
+          <section class="rain-humidity">
+            <h3><i class="fas fa-tint"></i> Rain & Humidity</h3>
+            <div id="rain-humidity-info" class="weather-details">
+              <div class="detail-item">
+                <i class="fas fa-umbrella"></i>
+                <p id="chance-of-rain"></p>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-water"></i>
+                <p>Humidity :</p>
+                <p id="humidity"></p>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+
+      <footer>
+        <p>&copy; 2024 Weather.io. All rights reserved.</p>
+      </footer>
     </div>
 
     <script src="./index.js"></script>
-</body>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="./chart.js"></script>
+  </body>
 </html>
