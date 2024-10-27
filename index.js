@@ -213,7 +213,7 @@ function getWeatherIconClass(icon) {
 }
 
 const currentDate = new Date();
-const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const currentDay = daysOfWeek[currentDate.getDay()];
 const year = currentDate.getFullYear();
 const month = String(currentDate.getMonth() + 1).padStart(2, "0");
