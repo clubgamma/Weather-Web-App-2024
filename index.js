@@ -21,6 +21,7 @@ if (cityInput) {
   cityInput.addEventListener('input', async function() {
     const query = cityInput.value.trim();
 
+    this.value = this.value.toUpperCase(); 
     clearTimeout(debounceTimeout);
 
     debounceTimeout = setTimeout(async () => {
