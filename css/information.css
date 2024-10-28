@@ -9,7 +9,7 @@
     --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     --gradient: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
     --glass-bg: rgba(255, 255, 255, 0.7);
-    --glass-border: rgba(255, 255, 255, 0.18);
+    --glass-border: rgba(187, 139, 139, 0.18);
     --card-radius: 20px;
     --transition: all 0.3s ease;
 }
@@ -203,7 +203,7 @@ main section:hover {
     background: var(--glass-bg);
     border-radius: 15px;
     transition: var(--transition);
-    border: 1px solid var(--glass-border);
+    border: 2px solid var(--glass-border);
 }
 
 .forecast-card:hover {
@@ -232,10 +232,10 @@ main section:hover {
     -webkit-text-fill-color: transparent;
 }
 
-.forecast-card .icon {
+.forecast-card i {
     font-size: 2.2rem;
     animation: floating 3s ease-in-out infinite;
-    color: var(--primary-color);
+    color: #257ed6; /* Dodger Blue */
 }
 
 .forecast-card .status {

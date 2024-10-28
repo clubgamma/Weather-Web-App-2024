@@ -1,8 +1,23 @@
+:root {
+    --primary-color: #2193b0;
+    --secondary-color: #6dd5ed;
+    --text-dark: #333;
+    --text-light: #555;
+    --card-bg: rgba(255, 255, 255, 0.9);
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --gradient: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.18);
+    --card-radius: 20px;
+    --transition: all 0.3s ease;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
-    background: linear-gradient(to right, #00c6ff, #0072ff);
-    color: #fff;
+    background: var(--gradient);
+    color: var(--text-dark);
     text-align: center;
+    height: 100vh;
     margin: 0;
     padding: 0;
 }
@@ -14,11 +29,15 @@ body {
 header {
     margin-bottom: 20px;
 }
+header h1 i {
+    color: #1c6374;
+}
 .search-box {
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--glass-bg);
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    border-radius: var(--card-radius);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--glass-border);
 }
 .search-input {
     display: flex;
@@ -32,8 +51,8 @@ header {
     border-radius: 5px;
     margin-right: 10px;
     flex: 1;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
 }
 .search-input input:hover, .search-input input:focus {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
@@ -43,14 +62,14 @@ header {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    background: #0072ff;
+    background: var(--primary-color);
     color: #fff;
     cursor: pointer;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
 }
 .search-input button:hover {
-    background: #005bb5;
+    background: var(--secondary-color);
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     transform: scale(1.05);
 }
@@ -62,32 +81,36 @@ header {
     padding: 0;
 }
 #suggestions li {
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--glass-bg);
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
     cursor: pointer;
+    color: var(--text-dark);
 }
 #suggestions li:hover {
-    background: rgba(255, 255, 255, 0.3);
+    background: var(--card-bg);
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     transform: translateY(-2px);
 }
 footer {
     margin-top: 20px;
+    color: var(--text-dark);
 }
 #weather-info {
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--glass-bg);
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    border-radius: var(--card-radius);
+    box-shadow: var(--shadow);
     margin-top: 20px;
     display: none;
+    border: 1px solid var(--glass-border);
 }
 #weather-info h2 {
     margin-bottom: 10px;
+    color: var(--text-dark);
 }
 .weather-details {
     display: flex;
@@ -95,15 +118,16 @@ footer {
     flex-wrap: wrap;
 }
 .weather-detail {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--glass-bg);
     padding: 10px;
     border-radius: 5px;
     margin: 5px;
     flex: 1 1 calc(33.333% - 20px);
     min-width: 120px;
-    transition: all 0.3s ease;
+    transition: var(--transition);
+    color: var(--text-dark);
 }
 .weather-detail:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--card-bg);
     transform: scale(1.05);
 }
