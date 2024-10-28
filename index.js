@@ -164,11 +164,13 @@ function updateWeatherInfo(data) {
   const weatherDesc = document.getElementById("weather-desc");
   const humidity = document.getElementById("humidity");
   const chanceOfRain = document.getElementById("chance-of-rain");
+   const windSpeed = document.getElementById("wind-speed");
 
   cityName.textContent = data.name;
   temperature.textContent = `${data.main.temp} °C`;
   weatherDesc.textContent = data.weather[0].description;
   humidity.textContent = `${data.main.humidity} %`;
+  windSpeed.textContent = `${data.wind.speed} m/s`;
 
   if (data.rain && data.rain["1h"]) {
     chanceOfRain.textContent = `Chance of Rain : ${data.rain["1h"]} %`;
