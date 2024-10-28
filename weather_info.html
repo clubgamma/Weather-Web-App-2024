@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/information.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <title>Weather Information</title>
 </head>
 
@@ -13,69 +14,68 @@
     <div class="weather-container">
         <div id="weather-data" class="visible">
             <div class="city-info">
-                <h2 id="city-name"></h2>
-                <p id="current-date"></p>
+                <div class="location">
+                    <i class="fas fa-location-dot"></i>
+                    <h2 id="city-name" class="gradient-text"></h2>
+                </div>
+                <p id="current-date" class="date-text"></p>
             </div>
 
             <main>
-                <section class="current-weather">
-                    <h3><i class="fas fa-temperature-high"></i> Current Weather</h3>
+                <section class="current-weather glass-card">
+                    <h3 class="section-title"><i class="fas fa-temperature-high"></i> Current Weather</h3>
                     <div id="weather-info" class="weather-details">
                         <div class="weather-icon">
-                            <i id="weather-icon" class="fas fa-sun fa-4x"></i>
+                            <i id="weather-icon" class="fas fa-sun fa-4x pulse"></i>
                         </div>
                         <div class="weather-text">
-                            <p id="temperature" class="temperature"></p>
+                            <p id="temperature" class="temperature gradient-text"></p>
                             <p id="weather-desc" class="description"></p>
                         </div>
                     </div>
                 </section>
 
-                <section class="forecast">
-                    <h3><i class="fas fa-calendar-alt"></i> 5-Day Forecast</h3>
+                <section class="forecast glass-card">
+                    <h3 class="section-title"><i class="fas fa-calendar-alt"></i> 5-Day Forecast</h3>
                     <div id="forecast-info" class="forecast-container">
                         <div id="forecasts" class="forecasts-row">
-                            <div class="forecast-card sunny">
-                                <h4 class="day">Monday, October 21</h4>
+                            <div class="forecast-card glass-effect sunny">
+                                <h4 class="day">Monday</h4>
                                 <div class="weather-content">
-                                    <div class="temp">24°C</div>
-                                    <i class="fas fa-cloud-sun fa-3x icon"></i>
+                                    <div class="temp gradient-text">24°C</div>
+                                    <i class="fas fa-cloud-sun fa-3x icon floating"></i>
                                 </div>
                                 <p class="status">Partly Cloudy</p>
                             </div>
-                            <div class="forecast-card cloudy">
-                                <h4 class="day">Tuesday, October 21</h4>
-
+                            <div class="forecast-card glass-effect cloudy">
+                                <h4 class="day">Tuesday</h4>
                                 <div class="weather-content">
-                                    <div class="temp">22°C</div>
-                                    <i class="fas fa-cloud fa-3x icon"></i>
+                                    <div class="temp gradient-text">22°C</div>
+                                    <i class="fas fa-cloud fa-3x icon floating"></i>
                                 </div>
                                 <p class="status">Cloudy</p>
                             </div>
-                            <div class="forecast-card rainy">
-                                <h4 class="day">Wednesday, October 21</h4>
-
+                            <div class="forecast-card glass-effect rainy">
+                                <h4 class="day">Wednesday</h4>
                                 <div class="weather-content">
-                                    <div class="temp">20°C</div>
-                                    <i class="fas fa-cloud-rain fa-3x icon"></i>
+                                    <div class="temp gradient-text">20°C</div>
+                                    <i class="fas fa-cloud-rain fa-3x icon floating"></i>
                                 </div>
                                 <p class="status">Rainy</p>
                             </div>
-                            <div class="forecast-card snowy">
-                                <h4 class="day">Thursday, October 21</h4>
-
+                            <div class="forecast-card glass-effect snowy">
+                                <h4 class="day">Thursday</h4>
                                 <div class="weather-content">
-                                    <div class="temp">-2°C</div>
-                                    <i class="fas fa-snowflake fa-3x icon"></i>
+                                    <div class="temp gradient-text">-2°C</div>
+                                    <i class="fas fa-snowflake fa-3x icon floating"></i>
                                 </div>
                                 <p class="status">Snowy</p>
                             </div>
-                            <div class="forecast-card stormy">
-                                <h4 class="day">Friday, October 21</h4>
-
+                            <div class="forecast-card glass-effect stormy">
+                                <h4 class="day">Friday</h4>
                                 <div class="weather-content">
-                                    <div class="temp">18°C</div>
-                                    <i class="fas fa-bolt fa-3x icon"></i>
+                                    <div class="temp gradient-text">18°C</div>
+                                    <i class="fas fa-bolt fa-3x icon floating"></i>
                                 </div>
                                 <p class="status">Stormy</p>
                             </div>
@@ -83,24 +83,24 @@
                     </div>
                 </section>
 
-                <section class="rain-humidity">
-                    <h3><i class="fas fa-tint"></i> Rain & Humidity</h3>
+                <section class="rain-humidity glass-card">
+                    <h3 class="section-title"><i class="fas fa-tint"></i> Rain & Humidity</h3>
                     <div id="rain-humidity-info" class="weather-details">
                         <div class="detail-item">
-                            <i class="fas fa-umbrella"></i>
-                            <p id="chance-of-rain"></p>
+                            <i class="fas fa-umbrella floating"></i>
+                            <p id="chance-of-rain" class="gradient-text"></p>
                         </div>
                         <div class="detail-item">
-                            <i class="fas fa-water"></i>
-                            <p>Humidity :</p>
-                            <p id="humidity"></p>
+                            <i class="fas fa-water floating"></i>
+                            <p class="label">Humidity:</p>
+                            <p id="humidity" class="gradient-text"></p>
                         </div>
                     </div>
                 </section>
             </main>
         </div>
 
-        <footer>
+        <footer class="glass-effect">
             <p>&copy; 2024 Weather.io. All rights reserved.</p>
         </footer>
     </div>
