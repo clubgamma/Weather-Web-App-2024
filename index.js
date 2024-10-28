@@ -6,6 +6,7 @@ const dateTime = document.getElementById("current-date");
 const suggestionsBox = document.getElementById('suggestions');
 const suggestions = document.getElementsByClassName('suggestion');
 const loadingIndicator = document.getElementById("loading");
+const errorMessage = document.getElementById("error-message");
 let forecastInfo = []; 
 let debounceTimeout;
 
@@ -15,6 +16,15 @@ function showLoading() {
 
 function hideLoading() {
   loadingIndicator.style.display = "none"; 
+}
+
+function displayErrorMessage(message) {
+  errorMessage.textContent = message;
+  errorMessage.style.display = "block"; // Show the error message
+}
+
+function hideErrorMessage() {
+  errorMessage.style.display = "none"; // Hide the error message
 }
 
 if (cityInput) {
@@ -72,7 +82,7 @@ const fetchData = () => {
           hideLoading();
         });
     }  else {
-      alert("Please enter a city name.");
+      displayErrorMessage("Please enter a city name.");
     }
 }
 
@@ -100,9 +110,10 @@ function getWeatherByCity(city) {
     })
     .then((data) => {
       sessionStorage.setItem("weatherData", JSON.stringify(data));
+      hideErrorMessage();
     })
     .catch((error) => {
-      alert(`${city} not found. Please try again...`);
+      displayErrorMessage(`${city} not found. Please try again...`);
       cityInput.value = "";
       hideLoading();
       throw error;
@@ -121,11 +132,12 @@ function getForecastByCity(city) {
     })
     .then((data) => {
       sessionStorage.setItem("forecastData", JSON.stringify(data));
+      hideErrorMessage(); 
       hideLoading();
       window.location = "weather_info.html"; 
     })
     .catch((error) => {
-      alert(`${city} not found. Please try again...`);
+      displayErrorMessage(`${city} not found. Please try again...`);
       cityInput.value = "";
       hideLoading();
       throw error;
