@@ -409,3 +409,55 @@ footer {
     font-size: 0.9rem;
     color: var(--text-light);
   }
+
+
+  /* UV Index Styles */
+.uv-index {
+    margin-top: 2rem;
+  }
+  
+  .uv-text {
+    text-align: left;
+  }
+  
+  .uv-text p {
+    margin: 0.5rem 0;
+  }
+  
+  #uv-value {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary-color);
+  }
+  
+  #uv-level {
+    font-weight: 500;
+  }
+  
+  #uv-advice {
+    font-size: 0.9rem;
+    color: var(--text-light);
+  }
+  
+  .uv-progress-bar {
+    width: 100%;
+    height: 10px;
+    background-color: #eee;
+    border-radius: 5px;
+    margin-top: 10px;
+    overflow: hidden;
+  }
+  
+  #uv-progress-fill {
+    height: 100%;
+    width: 0%;
+    transition: width 0.3s ease;
+    border-radius: 5px;
+  }
+  
+  /* UV level colors */
+  .uv-low { background-color: #3EA72D; }
+  .uv-moderate { background-color: #FFF300; }
+  .uv-high { background-color: #F18B00; }
+  .uv-very-high { background-color: #E53210; }
+  .uv-extreme { background-color: #B567A4; }

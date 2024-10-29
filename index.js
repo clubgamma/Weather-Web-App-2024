@@ -12,6 +12,78 @@ let forecastInfo = [];
 let debounceTimeout;
 
 
+
+function getUVIndex(lat, lon) {
+  const uvUrl = `https://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+  
+  return fetch(uvUrl)
+    .then(response => {
+      if (!response.ok) throw new Error('UV data not available');
+      return response.json();
+    })
+    .then(data => {
+      sessionStorage.setItem("uvData", JSON.stringify(data));
+      return data;
+    });
+}
+
+function updateUVInfo(data) {
+  const uvValue = document.getElementById("uv-value");
+  const uvLevel = document.getElementById("uv-level");
+  const uvAdvice = document.getElementById("uv-advice");
+  const uvProgressFill = document.getElementById("uv-progress-fill");
+
+  const uvIndex = data.value;
+  
+  const uvLevels = {
+    low: {
+      range: [0, 2],
+      level: "Low",
+      advice: "No protection required. You can safely stay outside.",
+      color: "uv-low"
+    },
+    moderate: {
+      range: [3, 5],
+      level: "Moderate",
+      advice: "Seek shade during midday hours. Wear sunscreen and protective clothing.",
+      color: "uv-moderate"
+    },
+    high: {
+      range: [6, 7],
+      level: "High",
+      advice: "Reduce time in the sun between 10 a.m. and 4 p.m. Wear protective clothing and sunscreen.",
+      color: "uv-high"
+    },
+    veryHigh: {
+      range: [8, 10],
+      level: "Very High",
+      advice: "Minimize sun exposure during midday hours. Protective measures are essential.",
+      color: "uv-very-high"
+    },
+    extreme: {
+      range: [11, 20],
+      level: "Extreme",
+      advice: "Avoid sun exposure during midday hours. Shirt, sunscreen, and hat are essential.",
+      color: "uv-extreme"
+    }
+  };
+
+  let uvCategory;
+  if (uvIndex <= 2) uvCategory = uvLevels.low;
+  else if (uvIndex <= 5) uvCategory = uvLevels.moderate;
+  else if (uvIndex <= 7) uvCategory = uvLevels.high;
+  else if (uvIndex <= 10) uvCategory = uvLevels.veryHigh;
+  else uvCategory = uvLevels.extreme;
+
+  uvValue.textContent = `UV Index: ${uvIndex}`;
+  uvLevel.textContent = `Level: ${uvCategory.level}`;
+  uvAdvice.textContent = uvCategory.advice;
+
+  // Update progress bar
+  uvProgressFill.className = uvCategory.color;
+  uvProgressFill.style.width = `${(uvIndex / 11) * 100}%`;
+}
+
 function getAirQuality(lat, lon) {
   const aqiUrl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
   
@@ -115,16 +187,19 @@ function getWeatherByCurrentLocation(lat, lon) {
   const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
   const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
   const aqiUrl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+  const uvUrl = `https://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=${apiKey}`;
 
   Promise.all([
     fetch(weatherUrl).then(response => response.json()),
     fetch(forecastUrl).then(response => response.json()),
-    fetch(aqiUrl).then(response => response.json())
+    fetch(aqiUrl).then(response => response.json()),
+    fetch(uvUrl).then(response => response.json())
   ])
-  .then(([weatherData, forecastData, aqiData]) => {
+  .then(([weatherData, forecastData, aqiData, uvData]) => {
     sessionStorage.setItem("weatherData", JSON.stringify(weatherData));
     sessionStorage.setItem("forecastData", JSON.stringify(forecastData));
     sessionStorage.setItem("aqiData", JSON.stringify(aqiData));
+    sessionStorage.setItem("uvData", JSON.stringify(uvData));
     hideLoading();
     window.location = "weather_info.html";
   })
@@ -229,6 +304,7 @@ if(cityInput){
 
 function getWeatherByCity(city) {
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+  let latitude, longitude;
 
   return fetch(apiUrl)
     .then((response) => {
@@ -239,15 +315,25 @@ function getWeatherByCity(city) {
     })
     .then((data) => {
       sessionStorage.setItem("weatherData", JSON.stringify(data));
-      // Get coordinates for AQI
-      const lat = data.coord.lat;
-      const lon = data.coord.lon;
-      // Fetch AQI data
-      return fetch(`https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`);
+      // Store coordinates for subsequent API calls
+      latitude = data.coord.lat;
+      longitude = data.coord.lon;
+      
+      // Create promises for both AQI and UV index data
+      const aqiPromise = fetch(`https://api.openweathermap.org/data/2.5/air_pollution?lat=${latitude}&lon=${longitude}&appid=${apiKey}`);
+      const uvPromise = fetch(`https://api.openweathermap.org/data/2.5/uvi?lat=${latitude}&lon=${longitude}&appid=${apiKey}`);
+      
+      // Return both promises to be resolved
+      return Promise.all([aqiPromise, uvPromise]);
     })
-    .then(response => response.json())
-    .then(aqiData => {
+    .then(([aqiResponse, uvResponse]) => {
+      // Convert both responses to JSON
+      return Promise.all([aqiResponse.json(), uvResponse.json()]);
+    })
+    .then(([aqiData, uvData]) => {
+      // Store both sets of data in sessionStorage
       sessionStorage.setItem("aqiData", JSON.stringify(aqiData));
+      sessionStorage.setItem("uvData", JSON.stringify(uvData));
       hideErrorMessage();
     })
     .catch((error) => {
@@ -286,6 +372,7 @@ window.onload = function () {
   const weatherData = JSON.parse(sessionStorage.getItem("weatherData"));
   const forecastData = JSON.parse(sessionStorage.getItem("forecastData"));
   const aqiData = JSON.parse(sessionStorage.getItem("aqiData"));
+  const uvData = JSON.parse(sessionStorage.getItem("uvData"));
 
   console.log("Weather Data:", weatherData);
   console.log("Forecast Data:", forecastData);
@@ -302,6 +389,10 @@ window.onload = function () {
 
   if (aqiData) {
     updateAQIInfo(aqiData);
+  }
+
+  if (uvData) {
+    updateUVInfo(uvData);
   }
 };
 
