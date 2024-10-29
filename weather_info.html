@@ -25,7 +25,7 @@
             <h3><i class="fas fa-temperature-high"></i> Current Weather</h3>
             <div id="weather-info" class="weather-details">
               <div class="weather-icon">
-                <i id="weather-icon" class="fas fa-sun fa-4x"></i>
+                <img alt="Weather Icon" class="icons">
               </div>
               <div class="weather-text">
                 <p id="temperature" class="temperature"></p>
@@ -73,7 +73,7 @@
           </div>
         </section>
 
-          <section class="forecast">
+         <section class="forecast">
             <h3><i class="fas fa-calendar-alt"></i> 5-Day Forecast</h3>
             <div id="forecast-info" class="forecast-container">
               <div id="forecasts" class="forecasts-row">
@@ -81,10 +81,11 @@
                   <h4 class="day">Monday, October 21</h4>
                   <div class="weather-content">
                     <div class="temp">24°C</div>
-                    <i class="fas fa-cloud-sun fa-3x icon"></i>
+                    <!-- <i class="fas fa-cloud-sun fa-3x icon"></i> -->
+                    <img alt="Weather Icon" class="icon">
+
                   </div>
                   <p class="status">Partly Cloudy</p>
-                  <!-- New Humidity and Wind Speed Information -->
                   <i class="fas fa-tint"></i>
                   <span class="humidity">Humidity: -- %</span>
                   <br>
@@ -97,7 +98,8 @@
 
                   <div class="weather-content">
                     <div class="temp">22°C</div>
-                    <i class="fas fa-cloud fa-3x icon"></i>
+                    <!-- <i class="fas fa-cloud fa-3x icon"></i> -->
+                    <img alt="Weather Icon" class="icon">
                   </div>
                   <p class="status">Cloudy</p>
                   <!-- New Humidity and Wind Speed Information -->
@@ -113,7 +115,7 @@
 
                   <div class="weather-content">
                     <div class="temp">20°C</div>
-                    <i class="fas fa-cloud-rain fa-3x icon"></i>
+                    <img alt="Weather Icon" class="icon">
                   </div>
                   <p class="status">Rainy</p>
                   <!-- New Humidity and Wind Speed Information -->
@@ -129,7 +131,7 @@
 
                   <div class="weather-content">
                     <div class="temp">-2°C</div>
-                    <i class="fas fa-snowflake fa-3x icon"></i>
+                    <img alt="Weather Icon" class="icon">
                   </div>
                   <p class="status">Snowy</p>
                   <!-- New Humidity and Wind Speed Information -->
@@ -145,7 +147,7 @@
 
                   <div class="weather-content">
                     <div class="temp">18°C</div>
-                    <i class="fas fa-bolt fa-3x icon"></i>
+                    <img alt="Weather Icon" class="icon">
                   </div>
                   <p class="status">Stormy</p>
                   <!-- New Humidity and Wind Speed Information -->
@@ -182,15 +184,8 @@
             <h2><i class="fas fa-cloud-rain"></i> Rain </h3>
             <div id="rain-humidity-info" class="weather-details">
               <div class="detail-item">
-                <i class="fas fa-umbrella"></i>
+                <img src="images/rainChance.png" alt="Chance Of Rain" style="height: 60px; width:60px";>
                 <p id="chance-of-rain"></p>
-
-                <!-- not required because we have humidity in the current weather section -->
-              <!-- </div>
-              <div class="detail-item">
-                <i class="fas fa-tint"></i>
-                  <span id="humidity">Humidity: -- %</span>
-              </div> -->
             </div>
           </section>
         </main>
