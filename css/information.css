@@ -369,3 +369,43 @@ footer {
         font-size: 2.5rem;
     }
 }
+
+
+.air-quality {
+    margin-top: 2rem;
+  }
+  
+  .air-quality .detail-item {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1rem;
+  }
+  
+  .air-quality .fas.fa-lungs {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+  }
+  
+  .aqi-text {
+    text-align: left;
+  }
+  
+  .aqi-text p {
+    margin: 0.5rem 0;
+  }
+  
+  #aqi-value {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary-color);
+  }
+  
+  #aqi-status {
+    font-weight: 500;
+  }
+  
+  #aqi-description {
+    font-size: 0.9rem;
+    color: var(--text-light);
+  }

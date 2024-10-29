@@ -12,6 +12,48 @@ let forecastInfo = [];
 let debounceTimeout;
 
 
+function getAirQuality(lat, lon) {
+  const aqiUrl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+  
+  return fetch(aqiUrl)
+    .then(response => {
+      if (!response.ok) throw new Error('Air quality data not available');
+      return response.json();
+    })
+    .then(data => {
+      sessionStorage.setItem("aqiData", JSON.stringify(data));
+      return data;
+    });
+}
+
+function updateAQIInfo(data) {
+  if (!data || !data.list || !data.list[0]) {
+    console.error("Invalid AQI data:", data);
+    return;
+  }
+
+  const aqiValue = document.getElementById("aqi-value");
+  const aqiStatus = document.getElementById("aqi-status");
+  const aqiDescription = document.getElementById("aqi-description");
+  const aqiIcon = document.querySelector(".air-quality .fas.fa-lungs");
+
+  const aqi = data.list[0].main.aqi;
+  
+  const aqiStatuses = {
+    1: { status: "Good", description: "Air quality is satisfactory, and air pollution poses little or no risk." },
+    2: { status: "Fair", description: "Air quality is acceptable; however, some pollutants may be moderate." },
+    3: { status: "Moderate", description: "Members of sensitive groups may experience health effects." },
+    4: { status: "Poor", description: "Everyone may begin to experience health effects." },
+    5: { status: "Very Poor", description: "Health warnings of emergency conditions. Everyone is more likely to be affected." }
+  };
+
+  const aqiInfo = aqiStatuses[aqi];
+  
+  if (aqiValue) aqiValue.textContent = `AQI: ${aqi}`;
+  if (aqiStatus) aqiStatus.textContent = `Quality: ${aqiInfo.status}`;
+  if (aqiDescription) aqiDescription.textContent = aqiInfo.description;
+  if (aqiIcon) aqiIcon.style.color = getAQIColor(aqi);
+}
 
 // Get current location button handler
 function handleGetCurrentLocation() {
@@ -58,35 +100,38 @@ function handleLocationError(error) {
   }
   displayErrorMessage(errorMessage);
 }
-
+function getAQIColor(aqi) {
+  const colors = {
+    1: "#00e400", // Good - Green
+    2: "#ffff00", // Fair - Yellow
+    3: "#ff7e00", // Moderate - Orange
+    4: "#ff0000", // Poor - Red
+    5: "#7f0023"  // Very Poor - Purple
+  };
+  return colors[aqi] || "#cccccc";
+}
 // Get weather for current location
 function getWeatherByCurrentLocation(lat, lon) {
   const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
   const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
+  const aqiUrl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
 
   Promise.all([
-      fetch(weatherUrl).then(response => {
-          if (!response.ok) throw new Error('Weather data not available');
-          return response.json();
-      }),
-      fetch(forecastUrl).then(response => {
-          if (!response.ok) throw new Error('Forecast data not available');
-          return response.json();
-      })
+    fetch(weatherUrl).then(response => response.json()),
+    fetch(forecastUrl).then(response => response.json()),
+    fetch(aqiUrl).then(response => response.json())
   ])
-  .then(([weatherData, forecastData]) => {
-      // Store the data
-      sessionStorage.setItem("weatherData", JSON.stringify(weatherData));
-      sessionStorage.setItem("forecastData", JSON.stringify(forecastData));
-
-      // Redirect to weather info page
-      hideLoading();
-      window.location = "weather_info.html";
+  .then(([weatherData, forecastData, aqiData]) => {
+    sessionStorage.setItem("weatherData", JSON.stringify(weatherData));
+    sessionStorage.setItem("forecastData", JSON.stringify(forecastData));
+    sessionStorage.setItem("aqiData", JSON.stringify(aqiData));
+    hideLoading();
+    window.location = "weather_info.html";
   })
   .catch(error => {
-      console.error("Error fetching weather:", error);
-      displayErrorMessage("Unable to fetch weather data. Please try again.");
-      hideLoading();
+    console.error("Error:", error);
+    displayErrorMessage("Unable to fetch weather data. Please try again.");
+    hideLoading();
   });
 }
 
@@ -194,6 +239,15 @@ function getWeatherByCity(city) {
     })
     .then((data) => {
       sessionStorage.setItem("weatherData", JSON.stringify(data));
+      // Get coordinates for AQI
+      const lat = data.coord.lat;
+      const lon = data.coord.lon;
+      // Fetch AQI data
+      return fetch(`https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`);
+    })
+    .then(response => response.json())
+    .then(aqiData => {
+      sessionStorage.setItem("aqiData", JSON.stringify(aqiData));
       hideErrorMessage();
     })
     .catch((error) => {
@@ -231,14 +285,23 @@ function getForecastByCity(city) {
 window.onload = function () {
   const weatherData = JSON.parse(sessionStorage.getItem("weatherData"));
   const forecastData = JSON.parse(sessionStorage.getItem("forecastData"));
-  // console.log(weatherData);
-  if (weatherData && forecastData) {
+  const aqiData = JSON.parse(sessionStorage.getItem("aqiData"));
+
+  console.log("Weather Data:", weatherData);
+  console.log("Forecast Data:", forecastData);
+  console.log("AQI Data:", aqiData);
+
+  if (weatherData) {
     updateWeatherInfo(weatherData);
   }
 
   if (forecastData && forecastData.list) {
     forecastInfo = forecastData.list.filter((_, i) => i % 8 === 0).slice(0, 5); 
     populateForecastCards();
+  }
+
+  if (aqiData) {
+    updateAQIInfo(aqiData);
   }
 };
 
