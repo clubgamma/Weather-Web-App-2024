@@ -3,32 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="https://i.pinimg.com/originals/87/9e/00/879e002a9082b4d32901840cb70c0929.gif">
-    <link rel="stylesheet" href="./css/style.css">
+      <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Weather.io</title>
 </head>
 <body>
-    <div class="container">
+    <div class="search-container">
         <header>
-            <h1><i class="fas fa-cloud-sun"></i> Weather.io</h1>
+            <h1 style="color:black;"><i class="fas fa-cloud-sun"></i> Weather.io</h1>
         </header>
 
         <div class="search-box">
-            <h2><i class="fas fa-search-location"></i> Enter a City</h2>
+            <h2 style="color: black;"><i class="fa-solid fa-location-dot"></i> Check Weather</h2>
             <div class="search-input">
-                <input type="text" id="city-input" placeholder="Enter city name" autocomplete="off">
-                <button id="search-btn">
-                    <i class="fas fa-search"></i> Search
-                </button>
+                <input type="text" id="city-input" placeholder="Enter city" autocomplete="off">
+                <button id="search-btn">🔍 Search</button>
             </div>
-            <button id="current-location-btn" class="location-btn">
-                <i class="fas fa-map-marker-alt"></i>Use Current Location
-            </button>
-            <div id="loading" class="loading" style="display: none;">
+             <div id="loading" class="loading" style="display: none;">
                 <i class="fas fa-spinner fa-spin"></i> Loading...
             </div>
-            <div id="error-message" class="error-message" style="display: none;"></div>
+            <div id="error-message" style="color: red; display: none;"></div>
             <ul id="suggestions"></ul>
         </div>
 
@@ -37,6 +31,6 @@
         </footer>
     </div>
 
-    <script src="./index.js"></script>
+     <script src="./index.js"></script>
 </body>
 </html>
