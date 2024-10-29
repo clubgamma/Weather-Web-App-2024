@@ -30,6 +30,13 @@
               <div class="weather-text">
                 <p id="temperature" class="temperature"></p>
                 <p id="weather-desc" class="description"></p>
+                
+                <!-- add wind speed and humidity -->
+                  <i class="fas fa-tint"></i>
+                  <span id="humidity">Humidity: -- %</span>
+                  <br>
+                  <i class="fas fa-wind"></i>
+                  <span id="wind-speed">Wind Speed: -- m/s</span>
               </div>
             </div>
           </section>
@@ -45,6 +52,13 @@
                     <i class="fas fa-cloud-sun fa-3x icon"></i>
                   </div>
                   <p class="status">Partly Cloudy</p>
+                  <!-- New Humidity and Wind Speed Information -->
+                  <i class="fas fa-tint"></i>
+                  <span class="humidity">Humidity: -- %</span>
+                  <br>
+
+                  <i class="fas fa-wind"></i>
+                  <span class="wind-speed">Wind Speed: -- m/s</span>
                 </div>
                 <div class="forecast-card cloudy">
                   <h4 class="day">Tuesday, October 21</h4>
@@ -54,6 +68,13 @@
                     <i class="fas fa-cloud fa-3x icon"></i>
                   </div>
                   <p class="status">Cloudy</p>
+                  <!-- New Humidity and Wind Speed Information -->
+                  <i class="fas fa-tint"></i>
+                  <span class="humidity">Humidity: -- %</span>
+                  <br>
+
+                  <i class="fas fa-wind"></i>
+                  <span class="wind-speed">Wind Speed: -- m/s</span>
                 </div>
                 <div class="forecast-card rainy">
                   <h4 class="day">Wednesday, October 21</h4>
@@ -63,6 +84,13 @@
                     <i class="fas fa-cloud-rain fa-3x icon"></i>
                   </div>
                   <p class="status">Rainy</p>
+                  <!-- New Humidity and Wind Speed Information -->
+                  <i class="fas fa-tint"></i>
+                  <span class="humidity">Humidity: -- %</span>
+                  <br>
+
+                  <i class="fas fa-wind"></i>
+                  <span class="wind-speed">Wind Speed: -- m/s</span>
                 </div>
                 <div class="forecast-card snowy">
                   <h4 class="day">Thursday, October 21</h4>
@@ -72,6 +100,13 @@
                     <i class="fas fa-snowflake fa-3x icon"></i>
                   </div>
                   <p class="status">Snowy</p>
+                  <!-- New Humidity and Wind Speed Information -->
+                  <i class="fas fa-tint"></i>
+                  <span class="humidity">Humidity: -- %</span>
+                  <br>
+
+                  <i class="fas fa-wind"></i>
+                  <span class="wind-speed">Wind Speed: -- m/s</span>
                 </div>
                 <div class="forecast-card stormy">
                   <h4 class="day">Friday, October 21</h4>
@@ -81,6 +116,13 @@
                     <i class="fas fa-bolt fa-3x icon"></i>
                   </div>
                   <p class="status">Stormy</p>
+                  <!-- New Humidity and Wind Speed Information -->
+                  <i class="fas fa-tint"></i>
+                  <span class="humidity">Humidity: -- %</span>
+                  <br>
+
+                  <i class="fas fa-wind"></i>
+                  <span class="wind-speed">Wind Speed: -- m/s</span>
                 </div>
               </div>
             </div>
@@ -105,17 +147,18 @@
           </section>
 
           <section class="rain-humidity">
-            <h3><i class="fas fa-tint"></i> Rain & Humidity</h3>
+            <h2><i class="fas fa-cloud-rain"></i> Rain </h3>
             <div id="rain-humidity-info" class="weather-details">
               <div class="detail-item">
                 <i class="fas fa-umbrella"></i>
                 <p id="chance-of-rain"></p>
-              </div>
+
+                <!-- not required because we have humidity in the current weather section -->
+              <!-- </div>
               <div class="detail-item">
-                <i class="fas fa-water"></i>
-                <p>Humidity :</p>
-                <p id="humidity"></p>
-              </div>
+                <i class="fas fa-tint"></i>
+                  <span id="humidity">Humidity: -- %</span>
+              </div> -->
             </div>
           </section>
         </main>

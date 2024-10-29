@@ -247,12 +247,14 @@ function updateWeatherInfo(data) {
   const temperature = document.getElementById("temperature");
   const weatherDesc = document.getElementById("weather-desc");
   const humidity = document.getElementById("humidity");
+  const windSpeed = document.getElementById("wind-speed");
   const chanceOfRain = document.getElementById("chance-of-rain");
 
   cityName.textContent = data.name;
   temperature.textContent = `${data.main.temp} °C`;
   weatherDesc.textContent = data.weather[0].description;
-  humidity.textContent = `${data.main.humidity} %`;
+  humidity.textContent = `Humidity: ${data.main.humidity} %`;
+  windSpeed.textContent = `Wind Speed: ${data.wind.speed} m/s`;
 
   if (data.rain && data.rain["1h"]) {
     chanceOfRain.textContent = `Chance of Rain : ${data.rain["1h"]} %`;
@@ -271,6 +273,8 @@ function populateForecastCards() {
     const temperature = `${Math.round(forecast.main.temp)}°C`;
     const weatherDescription = forecast.weather[0].description;
     const iconClass = getWeatherIconClass(forecast.weather[0].icon);
+    const humidityElem = card.querySelector('.humidity');
+    const windSpeedElem = card.querySelector('.wind-speed');
 
     const dayElem = card.querySelector('.day');
     const tempElem = card.querySelector('.temp');
@@ -281,6 +285,9 @@ function populateForecastCards() {
     tempElem.textContent = temperature;
     iconElem.className = `fas fa-3x ${iconClass}`;
     statusElem.textContent = weatherDescription;
+
+    humidityElem.textContent = `${forecast.main.humidity} %`;
+    windSpeedElem.textContent = `${forecast.wind.speed} m/s`;
   });
 }
 

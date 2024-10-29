@@ -94,6 +94,7 @@ main section:hover {
     padding: 1.5rem;
     flex-wrap: wrap;
     gap: 2rem;
+    color: var(--text-light);
 }
 
 #weather-data {
@@ -238,6 +239,40 @@ main section:hover {
     /* color: #ffdf7e; */
     color: #fbc011;
 
+}
+.forecast-card span {
+    color: var(--text-light);
+    margin-top: 0.5rem;
+    font-size: 1rem;
+
+}
+.forecast-card .fa-tint {
+    font-size: 1.5rem; 
+    color: #87CEEB; 
+    padding-bottom: 9px;
+    animation:none;
+    
+}
+
+.forecast-card .fa-wind {
+    font-size: 1.5rem; 
+    color: #4682B4; 
+    animation:none;
+}
+
+
+.weather-text .fa-tint {
+    font-size: 1.5rem; 
+    color: #87CEEB; 
+    padding-bottom: 9px;
+    animation:none;
+    
+}
+
+.weather-text .fa-wind {
+    font-size: 1.5rem; 
+    color: #4682B4;
+    animation:none;
 }
 
 .forecast-card .status {
