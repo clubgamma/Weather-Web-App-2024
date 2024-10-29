@@ -9,7 +9,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
-    <title>Weather Information</title>
+    <title>Weather Demo</title>
   </head>
 
   <body>
@@ -41,7 +41,8 @@
             </div>
           </section>
 
-          <section class="air-quality">
+          <div style="display: flex; justify-content: space-between;">
+          <section class="air-quality" style="width: 44%;">
             <h3><i class="fas fa-wind"></i> Air Quality</h3>
             <div id="aqi-info" class="weather-details">
               <div class="detail-item">
@@ -56,7 +57,7 @@
           </section>
 
           <!-- Add this section after the air-quality section -->
-        <section class="uv-index">
+        <section class="uv-index" style="width: 44%;">
           <h3><i class="fas fa-sun"></i> UV Index</h3>
           <div id="uv-info" class="weather-details">
             <div class="detail-item">
@@ -72,7 +73,7 @@
             </div>
           </div>
         </section>
-
+      </div>
           <section class="forecast">
             <h3><i class="fas fa-calendar-alt"></i> 5-Day Forecast</h3>
             <div id="forecast-info" class="forecast-container">
@@ -159,6 +160,8 @@
               </div>
             </div>
           </section>
+
+          
 
           <section class="forecast">
             <h3>
