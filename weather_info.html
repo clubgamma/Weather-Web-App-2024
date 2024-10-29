@@ -2,14 +2,17 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="https://i.pinimg.com/originals/87/9e/00/879e002a9082b4d32901840cb70c0929.gif">
+    <link
+      rel="icon"
+      href="https://i.pinimg.com/originals/87/9e/00/879e002a9082b4d32901840cb70c0929.gif"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/information.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
-    <title>Weather Demo</title>
+    <title>Weather Information</title>
   </head>
 
   <body>
@@ -30,50 +33,105 @@
               <div class="weather-text">
                 <p id="temperature" class="temperature"></p>
                 <p id="weather-desc" class="description"></p>
-                
+
                 <!-- add wind speed and humidity -->
-                  <i class="fas fa-tint"></i>
-                  <span id="humidity">Humidity: -- %</span>
-                  <br>
-                  <i class="fas fa-wind"></i>
-                  <span id="wind-speed">Wind Speed: -- m/s</span>
+                <i class="fas fa-tint"></i>
+                <span id="humidity">Humidity: -- %</span>
+                <br />
+                <i class="fas fa-wind"></i>
+                <span id="wind-speed">Wind Speed: -- m/s</span>
               </div>
             </div>
           </section>
 
-          <div style="display: flex; justify-content: space-between;">
-          <section class="air-quality" style="width: 44%;">
-            <h3><i class="fas fa-wind"></i> Air Quality</h3>
-            <div id="aqi-info" class="weather-details">
-              <div class="detail-item">
-                <i class="fas fa-lungs"></i>
-                <div class="aqi-text">
-                  <p id="aqi-value">AQI: --</p>
-                  <p id="aqi-status">Quality: --</p>
-                  <p id="aqi-description">--</p>
+          <div style="display: flex; justify-content: space-between">
+            <section class="air-quality" style="width: 44%">
+              <h3><i class="fas fa-wind"></i> Air Quality</h3>
+              <div id="aqi-info" class="weather-details">
+                <div class="detail-item">
+                  <i class="fas fa-lungs"></i>
+                  <div class="aqi-text">
+                    <p id="aqi-value">AQI: --</p>
+                    <p id="aqi-status">Quality: --</p>
+                    <p id="aqi-description">--</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
 
-          <!-- Add this section after the air-quality section -->
-        <section class="uv-index" style="width: 44%;">
-          <h3><i class="fas fa-sun"></i> UV Index</h3>
-          <div id="uv-info" class="weather-details">
-            <div class="detail-item">
-              <i class="fas fa-radiation"></i>
-              <div class="uv-text">
-                <p id="uv-value">UV Index: --</p>
-                <p id="uv-level">Level: --</p>
-                <p id="uv-advice">--</p>
-                <div id="uv-progress" class="uv-progress-bar">
-                  <div id="uv-progress-fill"></div>
+            <!-- Add this section after the air-quality section -->
+            <section class="uv-index" style="width: 44%">
+              <h3><i class="fas fa-sun"></i> UV Index</h3>
+              <div id="uv-info" class="weather-details">
+                <div class="detail-item">
+                  <i class="fas fa-radiation"></i>
+                  <div class="uv-text">
+                    <p id="uv-value">UV Index: --</p>
+                    <p id="uv-level">Level: --</p>
+                    <p id="uv-advice">--</p>
+                    <div id="uv-progress" class="uv-progress-bar">
+                      <div id="uv-progress-fill"></div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
+            </section>
           </div>
-        </section>
-      </div>
+
+          <section>
+            <h3>
+              <i
+                class="fa-solid fa-feather-pointed"
+                style="
+                  height: 30px;
+                  width: 30px;
+                  font-size: x-large;
+                  margin-right: 5px;
+                "
+              ></i>
+              Gas Quantities (per meter<sup>3</sup>)
+            </h3>
+
+            <div id="airCards">
+              <div style="display: flex; justify-content: space-around;">
+                <div class="airCard">
+                  <p>CO :</p>
+                  <p id="co"></p>
+                </div>
+                <div class="airCard">
+                  <p>NO :</p>
+                  <p id="no"></p>
+                </div>
+                <div class="airCard">
+                  <p>NO<sub>2</sub> :</p>
+                  <p id="no2"></p>
+                </div>
+                <div class="airCard">
+                  <p>O<sub>3</sub> :</p>
+                  <p id="o3"></p>
+                </div>
+              </div>
+              <div style="display: flex; justify-content: space-around;">
+                <div class="airCard">
+                  <p>SO<sub>2</sub> :</p>
+                  <p id="so2"></p>
+                </div>
+                <div class="airCard">
+                  <p>PM<sub>2.5</sub> :</p>
+                  <p id="pm2"></p>
+                </div>
+                <div class="airCard">
+                  <p>PM<sub>10</sub> :</p>
+                  <p id="pm10"></p>
+                </div>
+                <div class="airCard">
+                  <p>NH<sub>3</sub> :</p>
+                  <p id="nh3"></p>
+                </div>
+              </div>
+            </div>
+          </section>
+
           <section class="forecast">
             <h3><i class="fas fa-calendar-alt"></i> 5-Day Forecast</h3>
             <div id="forecast-info" class="forecast-container">
@@ -88,7 +146,7 @@
                   <!-- New Humidity and Wind Speed Information -->
                   <i class="fas fa-tint"></i>
                   <span class="humidity">Humidity: -- %</span>
-                  <br>
+                  <br />
 
                   <i class="fas fa-wind"></i>
                   <span class="wind-speed">Wind Speed: -- m/s</span>
@@ -104,7 +162,7 @@
                   <!-- New Humidity and Wind Speed Information -->
                   <i class="fas fa-tint"></i>
                   <span class="humidity">Humidity: -- %</span>
-                  <br>
+                  <br />
 
                   <i class="fas fa-wind"></i>
                   <span class="wind-speed">Wind Speed: -- m/s</span>
@@ -120,7 +178,7 @@
                   <!-- New Humidity and Wind Speed Information -->
                   <i class="fas fa-tint"></i>
                   <span class="humidity">Humidity: -- %</span>
-                  <br>
+                  <br />
 
                   <i class="fas fa-wind"></i>
                   <span class="wind-speed">Wind Speed: -- m/s</span>
@@ -136,7 +194,7 @@
                   <!-- New Humidity and Wind Speed Information -->
                   <i class="fas fa-tint"></i>
                   <span class="humidity">Humidity: -- %</span>
-                  <br>
+                  <br />
 
                   <i class="fas fa-wind"></i>
                   <span class="wind-speed">Wind Speed: -- m/s</span>
@@ -152,7 +210,7 @@
                   <!-- New Humidity and Wind Speed Information -->
                   <i class="fas fa-tint"></i>
                   <span class="humidity">Humidity: -- %</span>
-                  <br>
+                  <br />
 
                   <i class="fas fa-wind"></i>
                   <span class="wind-speed">Wind Speed: -- m/s</span>
@@ -160,8 +218,6 @@
               </div>
             </div>
           </section>
-
-          
 
           <section class="forecast">
             <h3>
@@ -182,13 +238,13 @@
           </section>
 
           <section class="rain-humidity">
-            <h2><i class="fas fa-cloud-rain"></i> Rain </h3>
+            <h2><i class="fas fa-cloud-rain"></i> Rain</h2>
             <div id="rain-humidity-info" class="weather-details">
               <div class="detail-item">
                 <i class="fas fa-umbrella"></i>
                 <p id="chance-of-rain"></p>
-
-                <!-- not required because we have humidity in the current weather section -->
+              </div>
+              <!-- not required because we have humidity in the current weather section -->
               <!-- </div>
               <div class="detail-item">
                 <i class="fas fa-tint"></i>
