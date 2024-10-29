@@ -111,12 +111,13 @@ function hideErrorMessage() {
   errorMessage.style.display = "none"; // Hide the error message
 }
 
+let selectedSuggestionIndex = -1;
 if (cityInput) {
   cityInput.addEventListener('input', async function() {
     const query = cityInput.value.trim();
 
     clearTimeout(debounceTimeout);
-
+    selectedSuggestionIndex = -1;
     debounceTimeout = setTimeout(async () => {
       if (query.length > 0) {
         const suggestions = await fetchCities(query);
@@ -126,6 +127,33 @@ if (cityInput) {
       }
     }, 400);
   });
+
+  cityInput.addEventListener('keydown' , (e) => {
+    const suggestionItems = Array.from(suggestionsBox.children);
+    if(e.key === 'ArrowDown'){
+      e.preventDefault();
+      if (selectedSuggestionIndex < suggestionItems.length - 1) {
+        selectedSuggestionIndex++;
+      }else{
+        selectedSuggestionIndex = 0;    //when user at last item and press down key it will  go to first item
+
+      }
+      updateSuggestionHighlight(suggestionItems);
+    }else if(e.key === 'ArrowUp') {
+      e.preventDefault();
+      if(selectedSuggestionIndex >0){
+        selectedSuggestionIndex--;
+      }else{
+        selectedSuggestionIndex = suggestionItems.length-1;  //when  user at first item and press up key it will go to last item
+      }
+      updateSuggestionHighlight(suggestionItems);
+    } else if(e.key === 'Enter' && selectedSuggestionIndex >= 0) {
+      e.preventDefault();
+      cityInput.value = suggestionItems[selectedSuggestionIndex].textContent;
+      suggestionsBox.innerHTML = '';
+      selectedSuggestionIndex = -1;
+    }
+  })
 }
 
 async function fetchCities(query) {
@@ -145,7 +173,23 @@ function displaySuggestions(suggestions) {
       li.addEventListener('click', function() {
         cityInput.value = suggestion;
         suggestionsBox.innerHTML = '';
+        selectedSuggestionIndex = -1;
       })
+  });
+}
+
+function updateSuggestionHighlight(suggestionItems) {   //for visual effect of suggestion selection
+  suggestionItems.forEach((item, index) => {
+    if (index === selectedSuggestionIndex) {
+      item.style.backgroundColor = '#f0f0f0';
+      item.style.boxShadow = "0 0 15px rgba(0, 0, 0, 0.2)";
+      item.style.transform = 'translateY(-2px)';
+      cityInput.value = item.textContent;  
+    } else {
+      item.style.backgroundColor = 'rgba(255, 255, 255, 0.7)';
+      item.style.boxShadow = "";
+      item.style.transform = 'translateY(0)';
+    }
   });
 }
 
