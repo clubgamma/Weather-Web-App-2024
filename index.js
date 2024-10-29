@@ -7,8 +7,92 @@ const suggestionsBox = document.getElementById('suggestions');
 const suggestions = document.getElementsByClassName('suggestion');
 const loadingIndicator = document.getElementById("loading");
 const errorMessage = document.getElementById("error-message");
+const currentLocationBtn = document.getElementById("current-location-btn");
 let forecastInfo = []; 
 let debounceTimeout;
+
+
+
+// Get current location button handler
+function handleGetCurrentLocation() {
+  if (navigator.geolocation) {
+      showLoading();
+      navigator.geolocation.getCurrentPosition(
+          // Success callback
+          position => {
+              const { latitude, longitude } = position.coords;
+              getWeatherByCurrentLocation(latitude, longitude);
+          },
+          // Error callback
+          error => {
+              hideLoading();
+              handleLocationError(error);
+          },
+          // Options
+          {
+              enableHighAccuracy: true,
+              timeout: 5000,
+              maximumAge: 0
+          }
+      );
+  } else {
+      displayErrorMessage("Geolocation is not supported by your browser");
+  }
+}
+
+// Handle location errors
+function handleLocationError(error) {
+  let errorMessage;
+  switch (error.code) {
+      case error.PERMISSION_DENIED:
+          errorMessage = "Please allow location access to use this feature.";
+          break;
+      case error.POSITION_UNAVAILABLE:
+          errorMessage = "Location information is unavailable.";
+          break;
+      case error.TIMEOUT:
+          errorMessage = "Location request timed out.";
+          break;
+      default:
+          errorMessage = "An unknown error occurred getting your location.";
+  }
+  displayErrorMessage(errorMessage);
+}
+
+// Get weather for current location
+function getWeatherByCurrentLocation(lat, lon) {
+  const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
+  const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
+
+  Promise.all([
+      fetch(weatherUrl).then(response => {
+          if (!response.ok) throw new Error('Weather data not available');
+          return response.json();
+      }),
+      fetch(forecastUrl).then(response => {
+          if (!response.ok) throw new Error('Forecast data not available');
+          return response.json();
+      })
+  ])
+  .then(([weatherData, forecastData]) => {
+      // Store the data
+      sessionStorage.setItem("weatherData", JSON.stringify(weatherData));
+      sessionStorage.setItem("forecastData", JSON.stringify(forecastData));
+
+      // Redirect to weather info page
+      hideLoading();
+      window.location = "weather_info.html";
+  })
+  .catch(error => {
+      console.error("Error fetching weather:", error);
+      displayErrorMessage("Unable to fetch weather data. Please try again.");
+      hideLoading();
+  });
+}
+
+if (currentLocationBtn) {
+  currentLocationBtn.addEventListener("click", handleGetCurrentLocation);
+}
 
 function showLoading() {
   loadingIndicator.style.display = "block"; 
