@@ -13,120 +13,6 @@ let debounceTimeout;
 
 
 
-function getUVIndex(lat, lon) {
-  const uvUrl = `https://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=${apiKey}`;
-  
-  return fetch(uvUrl)
-    .then(response => {
-      if (!response.ok) throw new Error('UV data not available');
-      return response.json();
-    })
-    .then(data => {
-      sessionStorage.setItem("uvData", JSON.stringify(data));
-      return data;
-    });
-}
-
-function updateUVInfo(data) {
-  const uvValue = document.getElementById("uv-value");
-  const uvLevel = document.getElementById("uv-level");
-  const uvAdvice = document.getElementById("uv-advice");
-  const uvProgressFill = document.getElementById("uv-progress-fill");
-
-  const uvIndex = data.value;
-  
-  const uvLevels = {
-    low: {
-      range: [0, 2],
-      level: "Low",
-      advice: "No protection required. You can safely stay outside.",
-      color: "uv-low"
-    },
-    moderate: {
-      range: [3, 5],
-      level: "Moderate",
-      advice: "Seek shade during midday hours. Wear sunscreen and protective clothing.",
-      color: "uv-moderate"
-    },
-    high: {
-      range: [6, 7],
-      level: "High",
-      advice: "Reduce time in the sun between 10 a.m. and 4 p.m. Wear protective clothing and sunscreen.",
-      color: "uv-high"
-    },
-    veryHigh: {
-      range: [8, 10],
-      level: "Very High",
-      advice: "Minimize sun exposure during midday hours. Protective measures are essential.",
-      color: "uv-very-high"
-    },
-    extreme: {
-      range: [11, 20],
-      level: "Extreme",
-      advice: "Avoid sun exposure during midday hours. Shirt, sunscreen, and hat are essential.",
-      color: "uv-extreme"
-    }
-  };
-
-  let uvCategory;
-  if (uvIndex <= 2) uvCategory = uvLevels.low;
-  else if (uvIndex <= 5) uvCategory = uvLevels.moderate;
-  else if (uvIndex <= 7) uvCategory = uvLevels.high;
-  else if (uvIndex <= 10) uvCategory = uvLevels.veryHigh;
-  else uvCategory = uvLevels.extreme;
-
-  uvValue.textContent = `UV Index: ${uvIndex}`;
-  uvLevel.textContent = `Level: ${uvCategory.level}`;
-  uvAdvice.textContent = uvCategory.advice;
-
-  // Update progress bar
-  uvProgressFill.className = uvCategory.color;
-  uvProgressFill.style.width = `${(uvIndex / 11) * 100}%`;
-}
-
-function getAirQuality(lat, lon) {
-  const aqiUrl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
-  
-  return fetch(aqiUrl)
-    .then(response => {
-      if (!response.ok) throw new Error('Air quality data not available');
-      return response.json();
-    })
-    .then(data => {
-      sessionStorage.setItem("aqiData", JSON.stringify(data));
-      return data;
-    });
-}
-
-function updateAQIInfo(data) {
-  if (!data || !data.list || !data.list[0]) {
-    console.error("Invalid AQI data:", data);
-    return;
-  }
-
-  const aqiValue = document.getElementById("aqi-value");
-  const aqiStatus = document.getElementById("aqi-status");
-  const aqiDescription = document.getElementById("aqi-description");
-  const aqiIcon = document.querySelector(".air-quality .fas.fa-lungs");
-
-  const aqi = data.list[0].main.aqi;
-  
-  const aqiStatuses = {
-    1: { status: "Good", description: "Air quality is satisfactory, and air pollution poses little or no risk." },
-    2: { status: "Fair", description: "Air quality is acceptable; however, some pollutants may be moderate." },
-    3: { status: "Moderate", description: "Members of sensitive groups may experience health effects." },
-    4: { status: "Poor", description: "Everyone may begin to experience health effects." },
-    5: { status: "Very Poor", description: "Health warnings of emergency conditions. Everyone is more likely to be affected." }
-  };
-
-  const aqiInfo = aqiStatuses[aqi];
-  
-  if (aqiValue) aqiValue.textContent = `AQI: ${aqi}`;
-  if (aqiStatus) aqiStatus.textContent = `Quality: ${aqiInfo.status}`;
-  if (aqiDescription) aqiDescription.textContent = aqiInfo.description;
-  if (aqiIcon) aqiIcon.style.color = getAQIColor(aqi);
-}
-
 // Get current location button handler
 function handleGetCurrentLocation() {
   if (navigator.geolocation) {
@@ -172,41 +58,35 @@ function handleLocationError(error) {
   }
   displayErrorMessage(errorMessage);
 }
-function getAQIColor(aqi) {
-  const colors = {
-    1: "#00e400", // Good - Green
-    2: "#ffff00", // Fair - Yellow
-    3: "#ff7e00", // Moderate - Orange
-    4: "#ff0000", // Poor - Red
-    5: "#7f0023"  // Very Poor - Purple
-  };
-  return colors[aqi] || "#cccccc";
-}
+
 // Get weather for current location
 function getWeatherByCurrentLocation(lat, lon) {
   const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
   const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
-  const aqiUrl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
-  const uvUrl = `https://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=${apiKey}`;
 
   Promise.all([
-    fetch(weatherUrl).then(response => response.json()),
-    fetch(forecastUrl).then(response => response.json()),
-    fetch(aqiUrl).then(response => response.json()),
-    fetch(uvUrl).then(response => response.json())
+      fetch(weatherUrl).then(response => {
+          if (!response.ok) throw new Error('Weather data not available');
+          return response.json();
+      }),
+      fetch(forecastUrl).then(response => {
+          if (!response.ok) throw new Error('Forecast data not available');
+          return response.json();
+      })
   ])
-  .then(([weatherData, forecastData, aqiData, uvData]) => {
-    sessionStorage.setItem("weatherData", JSON.stringify(weatherData));
-    sessionStorage.setItem("forecastData", JSON.stringify(forecastData));
-    sessionStorage.setItem("aqiData", JSON.stringify(aqiData));
-    sessionStorage.setItem("uvData", JSON.stringify(uvData));
-    hideLoading();
-    window.location = "weather_info.html";
+  .then(([weatherData, forecastData]) => {
+      // Store the data
+      sessionStorage.setItem("weatherData", JSON.stringify(weatherData));
+      sessionStorage.setItem("forecastData", JSON.stringify(forecastData));
+
+      // Redirect to weather info page
+      hideLoading();
+      window.location = "weather_info.html";
   })
   .catch(error => {
-    console.error("Error:", error);
-    displayErrorMessage("Unable to fetch weather data. Please try again.");
-    hideLoading();
+      console.error("Error fetching weather:", error);
+      displayErrorMessage("Unable to fetch weather data. Please try again.");
+      hideLoading();
   });
 }
 
@@ -231,13 +111,12 @@ function hideErrorMessage() {
   errorMessage.style.display = "none"; // Hide the error message
 }
 
-let selectedSuggestionIndex = -1;
 if (cityInput) {
   cityInput.addEventListener('input', async function() {
     const query = cityInput.value.trim();
 
     clearTimeout(debounceTimeout);
-    selectedSuggestionIndex = -1;
+
     debounceTimeout = setTimeout(async () => {
       if (query.length > 0) {
         const suggestions = await fetchCities(query);
@@ -247,33 +126,6 @@ if (cityInput) {
       }
     }, 400);
   });
-
-  cityInput.addEventListener('keydown' , (e) => {
-    const suggestionItems = Array.from(suggestionsBox.children);
-    if(e.key === 'ArrowDown'){
-      e.preventDefault();
-      if (selectedSuggestionIndex < suggestionItems.length - 1) {
-        selectedSuggestionIndex++;
-      }else{
-        selectedSuggestionIndex = 0;    //when user at last item and press down key it will  go to first item
-
-      }
-      updateSuggestionHighlight(suggestionItems);
-    }else if(e.key === 'ArrowUp') {
-      e.preventDefault();
-      if(selectedSuggestionIndex >0){
-        selectedSuggestionIndex--;
-      }else{
-        selectedSuggestionIndex = suggestionItems.length-1;  //when  user at first item and press up key it will go to last item
-      }
-      updateSuggestionHighlight(suggestionItems);
-    } else if(e.key === 'Enter' && selectedSuggestionIndex >= 0) {
-      e.preventDefault();
-      cityInput.value = suggestionItems[selectedSuggestionIndex].textContent;
-      suggestionsBox.innerHTML = '';
-      selectedSuggestionIndex = -1;
-    }
-  })
 }
 
 async function fetchCities(query) {
@@ -293,23 +145,7 @@ function displaySuggestions(suggestions) {
       li.addEventListener('click', function() {
         cityInput.value = suggestion;
         suggestionsBox.innerHTML = '';
-        selectedSuggestionIndex = -1;
       })
-  });
-}
-
-function updateSuggestionHighlight(suggestionItems) {   //for visual effect of suggestion selection
-  suggestionItems.forEach((item, index) => {
-    if (index === selectedSuggestionIndex) {
-      item.style.backgroundColor = '#f0f0f0';
-      item.style.boxShadow = "0 0 15px rgba(0, 0, 0, 0.2)";
-      item.style.transform = 'translateY(-2px)';
-      cityInput.value = item.textContent;  
-    } else {
-      item.style.backgroundColor = 'rgba(255, 255, 255, 0.7)';
-      item.style.boxShadow = "";
-      item.style.transform = 'translateY(0)';
-    }
   });
 }
 
@@ -348,7 +184,6 @@ if(cityInput){
 
 function getWeatherByCity(city) {
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
-  let latitude, longitude;
 
   return fetch(apiUrl)
     .then((response) => {
@@ -359,25 +194,7 @@ function getWeatherByCity(city) {
     })
     .then((data) => {
       sessionStorage.setItem("weatherData", JSON.stringify(data));
-      // Store coordinates for subsequent API calls
-      latitude = data.coord.lat;
-      longitude = data.coord.lon;
-      
-      // Create promises for both AQI and UV index data
-      const aqiPromise = fetch(`https://api.openweathermap.org/data/2.5/air_pollution?lat=${latitude}&lon=${longitude}&appid=${apiKey}`);
-      const uvPromise = fetch(`https://api.openweathermap.org/data/2.5/uvi?lat=${latitude}&lon=${longitude}&appid=${apiKey}`);
-      
-      // Return both promises to be resolved
-      return Promise.all([aqiPromise, uvPromise]);
-    })
-    .then(([aqiResponse, uvResponse]) => {
-      // Convert both responses to JSON
-      return Promise.all([aqiResponse.json(), uvResponse.json()]);
-    })
-    .then(([aqiData, uvData]) => {
-      // Store both sets of data in sessionStorage
-      sessionStorage.setItem("aqiData", JSON.stringify(aqiData));
-      sessionStorage.setItem("uvData", JSON.stringify(uvData));
+      console.log("Data:", data);
       hideErrorMessage();
     })
     .catch((error) => {
@@ -415,28 +232,14 @@ function getForecastByCity(city) {
 window.onload = function () {
   const weatherData = JSON.parse(sessionStorage.getItem("weatherData"));
   const forecastData = JSON.parse(sessionStorage.getItem("forecastData"));
-  const aqiData = JSON.parse(sessionStorage.getItem("aqiData"));
-  const uvData = JSON.parse(sessionStorage.getItem("uvData"));
-
-  console.log("Weather Data:", weatherData);
-  console.log("Forecast Data:", forecastData);
-  console.log("AQI Data:", aqiData);
-
-  if (weatherData) {
+  // console.log(weatherData);
+  if (weatherData && forecastData) {
     updateWeatherInfo(weatherData);
   }
 
   if (forecastData && forecastData.list) {
     forecastInfo = forecastData.list.filter((_, i) => i % 8 === 0).slice(0, 5); 
     populateForecastCards();
-  }
-
-  if (aqiData) {
-    updateAQIInfo(aqiData);
-  }
-
-  if (uvData) {
-    updateUVInfo(uvData);
   }
 };
 
@@ -470,7 +273,10 @@ function populateForecastCards() {
     const day = daysOfWeek[date.getDay()];
     const temperature = `${Math.round(forecast.main.temp)}°C`;
     const weatherDescription = forecast.weather[0].description;
-    const iconClass = getWeatherIconClass(forecast.weather[0].icon);
+
+     const iconSrc = getWeatherIconClass(forecast.weather[0].icon); 
+    const mainSrc = getWeatherIconClass(forecast.weather[0].icon);
+    
     const humidityElem = card.querySelector('.humidity');
     const windSpeedElem = card.querySelector('.wind-speed');
 
@@ -478,10 +284,13 @@ function populateForecastCards() {
     const tempElem = card.querySelector('.temp');
     const iconElem = card.querySelector('.icon');
     const statusElem = card.querySelector('.status');
+    const mainElem = document.querySelector(".icons");
 
     dayElem.textContent = day;
     tempElem.textContent = temperature;
-    iconElem.className = `fas fa-3x ${iconClass}`;
+    // iconElem.className = `fas fa-3x ${iconClass}`;
+    iconElem.src = iconSrc;
+    mainElem.src = mainSrc;
     statusElem.textContent = weatherDescription;
 
     humidityElem.textContent = `${forecast.main.humidity} %`;
@@ -491,24 +300,24 @@ function populateForecastCards() {
 
 function getWeatherIconClass(icon) {
   const iconMapping = {
-    "01d": "fa-sun",
-    "01n": "fa-moon",
-    "02d": "fa-cloud-sun",
-    "02n": "fa-cloud-moon",
-    "03d": "fa-cloud",
-    "03n": "fa-cloud",
-    "04d": "fa-cloud-meatball",
-    "04n": "fa-cloud-meatball",
-    "09d": "fa-cloud-showers-heavy",
-    "09n": "fa-cloud-showers-heavy",
-    "10d": "fa-cloud-sun-rain",
-    "10n": "fa-cloud-moon-rain",
-    "11d": "fa-bolt",
-    "11n": "fa-bolt",
-    "13d": "fa-snowflake",
-    "13n": "fa-snowflake",
-    "50d": "fa-smog",
-    "50n": "fa-smog"
+    "01d": "./images/clear-sky.png",
+    "01n": "./images/clear-sky.png",
+    "02d": "./images/cloud-sun.png",
+    "02n": "https://openweathermap.org/img/wn/02n@2x.png",
+    "03d": "./images/scatter-clouds.png",
+    "03n": "./images/scatter-clouds.png", 
+    "04d": "./images/partial-cloud.png",
+    "04n": "./images/partial-cloud.png",
+    "09d": "./images/shower-rain.png",
+    "09n": "./images/shower-rain.png",
+    "10d": "./images/rainy.png",
+    "10n": "https://openweathermap.org/img/wn/10n@2x.png", 
+    "11d": "./images/stormy.png",
+    "11n": "./images/stormy.png",
+    "13d": "./images/snow.png",
+    "13n": "./images/snow.png",
+    "50d": "./images/mist.png",
+    "50n": "./images/mist.png"
   };
   return iconMapping[icon] || "fa-cloud";
 }
