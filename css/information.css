@@ -302,6 +302,13 @@ main section:hover {
     animation: floating 3s ease-in-out infinite;
 }
 
+.otherImg{
+    animation: floating 3s ease-in-out infinite;
+}
+.rotate {
+    animation: spin 9s linear infinite;
+}
+
 /* Animations */
 @keyframes pulse {
     0% { transform: scale(1); }
@@ -314,6 +321,15 @@ main section:hover {
     50% { transform: translateY(-10px) rotate(5deg); }
     100% { transform: translateY(0) rotate(0deg); }
 }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
 
 /* Footer */
 footer {
