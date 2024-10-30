@@ -490,6 +490,17 @@ function populateForecastCards() {
 
     humidityElem.textContent = `${forecast.main.humidity} %`;
     windSpeedElem.textContent = `${forecast.wind.speed} m/s`;
+
+    if (iconSrc.endsWith('clear-sky.png')) {
+      iconElem.classList.add('rotate'); 
+      mainElem.classList.add('rotate');
+    }
+    else {
+      iconElem.classList.add('otherImg'); 
+      mainElem.classList.add('otherImg');
+      iconElem.classList.remove('rotate'); 
+      mainElem.classList.remove('rotate');
+    }
   });
 }
 
