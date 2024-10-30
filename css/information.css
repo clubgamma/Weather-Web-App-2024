@@ -25,7 +25,10 @@ body {
     align-items: center;
     color: var(--text-dark);
 }
-
+img{
+    height: 100px;
+    width: 100px;
+}
 .weather-container {
     max-width: 1200px;
     width: 90%;

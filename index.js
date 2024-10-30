@@ -493,15 +493,19 @@ function populateForecastCards() {
     const iconClass = getWeatherIconClass(forecast.weather[0].icon);
     const humidityElem = card.querySelector('.humidity');
     const windSpeedElem = card.querySelector('.wind-speed');
+    const iconSrc = getWeatherIconClass(forecast.weather[0].icon); 
+    const mainSrc = getWeatherIconClass(forecast.weather[0].icon);
 
     const dayElem = card.querySelector('.day');
     const tempElem = card.querySelector('.temp');
     const iconElem = card.querySelector('.icon');
     const statusElem = card.querySelector('.status');
+    const mainElem = document.querySelector(".icons");
 
     dayElem.textContent = day;
     tempElem.textContent = temperature;
-    iconElem.className = `fas fa-3x ${iconClass}`;
+    iconElem.src = iconSrc;
+    mainElem.src = mainSrc;
     statusElem.textContent = weatherDescription;
 
     humidityElem.textContent = `${forecast.main.humidity} %`;
@@ -511,24 +515,24 @@ function populateForecastCards() {
 
 function getWeatherIconClass(icon) {
   const iconMapping = {
-    "01d": "fa-sun",
-    "01n": "fa-moon",
-    "02d": "fa-cloud-sun",
-    "02n": "fa-cloud-moon",
-    "03d": "fa-cloud",
-    "03n": "fa-cloud",
-    "04d": "fa-cloud-meatball",
-    "04n": "fa-cloud-meatball",
-    "09d": "fa-cloud-showers-heavy",
-    "09n": "fa-cloud-showers-heavy",
-    "10d": "fa-cloud-sun-rain",
-    "10n": "fa-cloud-moon-rain",
-    "11d": "fa-bolt",
-    "11n": "fa-bolt",
-    "13d": "fa-snowflake",
-    "13n": "fa-snowflake",
-    "50d": "fa-smog",
-    "50n": "fa-smog"
+    "01d": "./images/clear-sky.png",
+    "01n": "./images/clear-sky.png",
+    "02d": "./images/cloud-sun.png",
+    "02n": "./images/cloud-sun.png",
+    "03d": "./images/scatter-clouds.png",
+    "03n": "./images/scatter-clouds.png", 
+    "04d": "./images/partial-cloud.png",
+    "04n": "./images/partial-cloud.png",
+    "09d": "./images/shower-rain.png",
+    "09n": "./images/shower-rain.png",
+    "10d": "./images/rainy.png",
+    "10n": "./images/rainy.png", 
+    "11d": "./images/stormy.png",
+    "11n": "./images/stormy.png",
+    "13d": "./images/snow.png",
+    "13n": "./images/snow.png",
+    "50d": "./images/mist.png",
+    "50n": "./images/mist.png"
   };
   return iconMapping[icon] || "fa-cloud";
 }
