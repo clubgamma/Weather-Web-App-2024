@@ -5,7 +5,7 @@
     --text-light: #555;
     --card-bg: rgba(255, 255, 255, 0.9);
     --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    --gradient: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    --gradient: radial-gradient(circle at top, #a1c4fd, #c2e9fb);
     --glass-bg: rgba(255, 255, 255, 0.7);
     --glass-border: rgba(255, 255, 255, 0.18);
     --card-radius: 20px;
