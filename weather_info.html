@@ -29,14 +29,29 @@
               </div>
               <div class="weather-text">
                 <p id="temperature" class="temperature"></p>
-                <p id="weather-desc" class="description"></p>
+                <p><b id="weather-desc" class="description"></b></p>
                 
-                <!-- add wind speed and humidity -->
                   <i class="fas fa-tint"></i>
-                  <span id="humidity">Humidity: -- %</span>
+                  <b>Humidity:</b>&nbsp;&nbsp;<span id="humidity"> -- %</span>
                   <br>
+                
                   <i class="fas fa-wind"></i>
-                  <span id="wind-speed">Wind Speed: -- m/s</span>
+                  <b>Wind Speed: </b>&nbsp;&nbsp;<span id="wind-speed"> -- m/s</span>
+                  <br>
+                
+                  <div class="suntime" style="display: flex; margin-top:.7rem;">
+                    <span>
+                      <img src="images/sunrise.png" alt="Sunrise" style="width: 31px; height:31px;">
+                    </span>
+                    <b>Sunrise: </b>&nbsp;&nbsp;<span class="sunrise-time"> --</span>
+                </div>
+
+                <div class="suntime" style="display: flex; margin-left:1rem">
+                  <span>
+                    <img src="images/sunset.png" alt="Sunset" style="width: 31px; height:31px;">
+                  </span>
+                  <b>Sunset: </b>&nbsp;&nbsp;<span class="sunset-time"> --</span>
+              </div>
               </div>
             </div>
           </section>
