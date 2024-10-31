@@ -12,6 +12,8 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/css/ol.css" type="text/css">
+    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/build/ol.js"></script>
     <title>Weather Information</title>
   </head>
 
@@ -41,6 +43,10 @@
                 <i class="fas fa-wind"></i>
                 <span id="wind-speed">Wind Speed: -- m/s</span>
               </div>
+              <div class="wind-direction">
+                <i id="wind-direction-icon" class="fas fa-long-arrow-alt-up"></i>
+                <span id="wind-direction-text"></span>
+            </div>
             </div>
           </section>
 
@@ -253,6 +259,25 @@
               </div> -->
             </div>
           </section>
+
+
+          <section class="weather-map">
+            <h3>
+                <i class="fas fa-map-marked-alt" style="height: 30px; width: 30px; font-size: x-large; margin-right: 5px;"></i>
+                Weather Map
+            </h3>
+            <div id="map" style="height: 400px; width: 100%; border-radius: 10px;"></div>
+            <div class="map-controls">
+                <select id="map-layer" class="map-control">
+                    <option value="temp">Temperature</option>
+                    <option value="clouds">Clouds</option>
+                    <option value="precipitation">Precipitation</option>
+                    <option value="wind">Wind Speed</option>
+                </select>
+            </div>
+        </section>
+
+
         </main>
       </div>
 
@@ -264,5 +289,6 @@
     <script src="./index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="./chart.js"></script>
+    <script src="./weathermap.js"></script>
   </body>
 </html>
