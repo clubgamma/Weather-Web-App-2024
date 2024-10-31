@@ -493,15 +493,18 @@ function updateWeatherInfo(data) {
   const chanceOfRain = document.getElementById("chance-of-rain");
   const sunriseTimes = document.querySelectorAll(".sunrise-time");
   const sunsetTimes = document.querySelectorAll(".sunset-time");
+  const chanceOfRain = document.querySelector("#chance-of-rain");
 
   const sunrise = sessionStorage.getItem("sunrise");
   const sunset = sessionStorage.getItem("sunset");
+  const rainChance = (forecast.pop * 100).toFixed(1);
 
   cityName.textContent = data.name;
   temperature.textContent = `${data.main.temp} °C`;
   weatherDesc.textContent = data.weather[0].description;
-  humidity.textContent = `Humidity: ${data.main.humidity} %`;
-  windSpeed.textContent = `Wind Speed: ${data.wind.speed} m/s`;
+  humidity.textContent = `${data.main.humidity} %`;
+  windSpeed.textContent = `${data.wind.speed} m/s`;
+  chanceOfRain.textContent = `${rainChance}%`;
 
   
   sunriseTimes.forEach(elem => {
