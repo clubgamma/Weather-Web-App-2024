@@ -490,7 +490,6 @@ function updateWeatherInfo(data) {
   const weatherDesc = document.getElementById("weather-desc");
   const humidity = document.getElementById("humidity");
   const windSpeed = document.getElementById("wind-speed");
-  const chanceOfRain = document.getElementById("chance-of-rain");
   const sunriseTimes = document.querySelectorAll(".sunrise-time");
   const sunsetTimes = document.querySelectorAll(".sunset-time");
   const chanceOfRain = document.querySelector("#chance-of-rain");
