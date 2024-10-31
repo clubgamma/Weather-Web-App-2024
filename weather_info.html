@@ -12,12 +12,8 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-      crossorigin=""
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/css/ol.css" type="text/css">
+    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/build/ol.js"></script>
     <title>Weather Information</title>
   </head>
 
@@ -34,39 +30,31 @@
             <h3><i class="fas fa-temperature-high"></i> Current Weather</h3>
             <div id="weather-info" class="weather-details">
               <div class="weather-icon">
-                 <img alt="Weather Icon" class="icons main-icon">
+                <i id="weather-icon" class="fas fa-sun fa-4x"></i>
               </div>
               <div class="weather-text">
                 <p id="temperature" class="temperature"></p>
-                <p><b id="weather-desc" class="description"></b></p>
+                <p id="weather-desc" class="description"></p>
 
                 <!-- add wind speed and humidity -->
                 <i class="fas fa-tint"></i>
-                <b>Humidity:</b>&nbsp;&nbsp;<span id="humidity"> -- %</span>
+                <span id="humidity">Humidity: -- %</span>
                 <br />
                 <i class="fas fa-wind"></i>
-                <b>Wind Speed: </b>&nbsp;&nbsp;<span id="wind-speed"> -- m/s</span>
-
-                <div class="suntime" style="display: flex; margin-top:.7rem;">
-                    <span>
-                      <img src="images/sunrise.png" alt="Sunrise" style="width: 31px; height:31px;">
-                    </span>
-                    <b>Sunrise: </b>&nbsp;&nbsp;<span class="sunrise-time"> --</span>
-                </div>
-
-                <div class="suntime" style="display: flex; margin-left:1rem">
-                  <span>
-                    <img src="images/sunset.png" alt="Sunset" style="width: 31px; height:31px;">
-                  </span>
-                  <b>Sunset: </b>&nbsp;&nbsp;<span class="sunset-time"> --</span>
+                <span id="wind-speed">Wind Speed: -- m/s</span>
               </div>
-                
-              </div>
+              <div class="wind-direction">
+                <i id="wind-direction-icon" class="fas fa-long-arrow-alt-up"></i>
+                <span id="wind-direction-text"></span>
+            </div>
             </div>
           </section>
 
+          <section id="health-impact" class="weather-section"></section>
+
           <div style="display: flex; justify-content: space-between">
-            <section class="air-quality" style="width: 44%">
+            <section class="air-quality">
+              <h3><i class="fas fa-wind"></i> Air Quality</h3>
               <div id="aqi-info" class="weather-details">
                 <div class="detail-item">
                   <i class="fas fa-lungs"></i>
@@ -80,7 +68,8 @@
             </section>
 
             <!-- Add this section after the air-quality section -->
-            <section class="uv-index" style="width: 44%">
+            <section class="uv-index" >
+              <h3><i class="fas fa-sun"></i> UV Index</h3>
               <div id="uv-info" class="weather-details">
                 <div class="detail-item">
                   <i class="fas fa-radiation"></i>
@@ -105,7 +94,7 @@
                   <h4 class="day">Monday, October 21</h4>
                   <div class="weather-content">
                     <div class="temp">24°C</div>
-                    <img alt="Weather Icon" class="icon forcast-images">
+                    <i class="fas fa-cloud-sun fa-3x icon"></i>
                   </div>
                   <p class="status">Partly Cloudy</p>
                   <!-- New Humidity and Wind Speed Information -->
@@ -121,7 +110,7 @@
 
                   <div class="weather-content">
                     <div class="temp">22°C</div>
-                   <img alt="Weather Icon" class="icon forcast-images">
+                    <i class="fas fa-cloud fa-3x icon"></i>
                   </div>
                   <p class="status">Cloudy</p>
                   <!-- New Humidity and Wind Speed Information -->
@@ -137,7 +126,7 @@
 
                   <div class="weather-content">
                     <div class="temp">20°C</div>
-                    <img alt="Weather Icon" class="icon forcast-images">
+                    <i class="fas fa-cloud-rain fa-3x icon"></i>
                   </div>
                   <p class="status">Rainy</p>
                   <!-- New Humidity and Wind Speed Information -->
@@ -153,7 +142,7 @@
 
                   <div class="weather-content">
                     <div class="temp">-2°C</div>
-                    <img alt="Weather Icon" class="icon forcast-images">
+                    <i class="fas fa-snowflake fa-3x icon"></i>
                   </div>
                   <p class="status">Snowy</p>
                   <!-- New Humidity and Wind Speed Information -->
@@ -169,7 +158,7 @@
 
                   <div class="weather-content">
                     <div class="temp">18°C</div>
-                    <img alt="Weather Icon" class="icon forcast-images">
+                    <i class="fas fa-bolt fa-3x icon"></i>
                   </div>
                   <p class="status">Stormy</p>
                   <!-- New Humidity and Wind Speed Information -->
@@ -276,21 +265,25 @@
             </div>
           </section>
 
-          <section>
+
+
+          <section class="weather-map">
             <h3>
-              <i
-                class="fa-solid fa-globe"
-                style="
-                  height: 30px;
-                  width: 30px;
-                  font-size: x-large;
-                  margin-right: 4px;
-                "
-              ></i>
-              Temperature Map
+                <i class="fas fa-map-marked-alt" style="height: 30px; width: 30px; font-size: x-large; margin-right: 5px;"></i>
+                Weather Map
             </h3>
-            <div id="map"></div>
-          </section>
+            <div id="map" style="height: 400px; width: 100%; border-radius: 10px;"></div>
+            <div class="map-controls">
+                <select id="map-layer" class="map-control">
+                    <option value="temp">Temperature</option>
+                    <option value="clouds">Clouds</option>
+                    <option value="precipitation">Precipitation</option>
+                    <option value="wind">Wind Speed</option>
+                </select>
+            </div>
+        </section>
+
+
         </main>
       </div>
 
@@ -302,11 +295,6 @@
     <script src="./index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="./chart.js"></script>
-    <script
-      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-      crossorigin=""
-    ></script>
-    <script src="./map.js"></script>
+    <script src="./weathermap.js"></script>
   </body>
 </html>
