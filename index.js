@@ -10,6 +10,7 @@ const errorMessage = document.getElementById("error-message");
 const currentLocationBtn = document.getElementById("current-location-btn");
 let forecastInfo = []; 
 let debounceTimeout;
+// import {updateWeatherInfo, loadWeatherMap} from  './weather.js';
 
 
 
@@ -458,6 +459,10 @@ window.onload = function () {
   if (uvData) {
     updateUVInfo(uvData);
   }
+  if (weatherData) {
+    updateWeatherInfo(weatherData);
+    loadWeatherMap(); // Add this line
+  }
 };
 
 function updateWeatherInfo(data) {
@@ -505,7 +510,6 @@ function populateForecastCards() {
     dayElem.textContent = day;
     tempElem.textContent = temperature;
     iconElem.src = iconSrc;
-    mainElem.src = mainSrc;
     statusElem.textContent = weatherDescription;
 
     humidityElem.textContent = `${forecast.main.humidity} %`;

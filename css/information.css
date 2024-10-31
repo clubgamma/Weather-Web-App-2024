@@ -489,3 +489,26 @@ footer {
   .uv-high { background-color: #F18B00; }
   .uv-very-high { background-color: #E53210; }
   .uv-extreme { background-color: #B567A4; }
+
+
+  .map-controls {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.map-control {
+    padding: 8px 16px;
+    border: 1px solid var(--glass-border);
+    border-radius: 5px;
+    background: var(--glass-bg);
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.map-control:hover {
+    background: var(--card-bg);
+    box-shadow: var(--shadow);
+}
