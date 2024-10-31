@@ -492,19 +492,15 @@ function updateWeatherInfo(data) {
   const windSpeed = document.getElementById("wind-speed");
   const sunriseTimes = document.querySelectorAll(".sunrise-time");
   const sunsetTimes = document.querySelectorAll(".sunset-time");
-  const chanceOfRain = document.querySelector("#chance-of-rain");
-
+ 
   const sunrise = sessionStorage.getItem("sunrise");
   const sunset = sessionStorage.getItem("sunset");
-  const rainChance = (forecast.pop * 100).toFixed(1);
 
   cityName.textContent = data.name;
   temperature.textContent = `${data.main.temp} °C`;
   weatherDesc.textContent = data.weather[0].description;
   humidity.textContent = `${data.main.humidity} %`;
   windSpeed.textContent = `${data.wind.speed} m/s`;
-  chanceOfRain.textContent = `${rainChance}%`;
-
   
   sunriseTimes.forEach(elem => {
     elem.textContent = `${sunrise} A.M.`;
@@ -514,12 +510,7 @@ function updateWeatherInfo(data) {
     elem.textContent = `${sunset} P.M.`;
   });
   
-  updateWindDirection(data.wind.deg); 
-  if (data.rain && data.rain["1h"]) {
-    chanceOfRain.textContent = `Chance of Rain : ${data.rain["1h"]} %`;
-  } else {
-    chanceOfRain.textContent = "Chance of Rain : N/A";
-  }
+   updateWindDirection(data.wind.deg); 
 }
 
 function populateForecastCards() {
@@ -542,15 +533,19 @@ function populateForecastCards() {
     const iconElem = card.querySelector('.icon');
     const statusElem = card.querySelector('.status');
     const mainElem = document.querySelector(".icons");
-
+    const chanceOfRain = document.querySelector("#chance-of-rain");
+    
     dayElem.textContent = day;
     tempElem.textContent = temperature;
     iconElem.src = iconSrc;
     mainElem.src = mainSrc;
     statusElem.textContent = weatherDescription;
-
+     
+    const rainChance = (forecast.pop * 100).toFixed(1);
+    
     humidityElem.textContent = `${forecast.main.humidity} %`;
     windSpeedElem.textContent = `${forecast.wind.speed} m/s`;
+    chanceOfRain.textContent = `${rainChance}%`;
 
     if (iconSrc.endsWith('clear-sky.png')) {
       iconElem.classList.add('rotate'); 
