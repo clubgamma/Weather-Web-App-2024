@@ -406,10 +406,18 @@ function getWeatherByCity(city) {
       latitude = data.coord.lat;
       longitude = data.coord.lon;
 
+
       sessionStorage.setItem(
         "currPos",
         JSON.stringify({ lat: latitude, lon: longitude })
       );
+
+
+       const sunrise = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
+       const sunset = new Date(data.sys.sunset * 1000).toLocaleTimeString();
+       sessionStorage.setItem("sunrise", sunrise);
+       sessionStorage.setItem("sunset", sunset);
+      
 
       // Create promises for both AQI and UV index data
       const aqiPromise = fetch(
@@ -517,11 +525,16 @@ function updateWeatherInfo(data) {
   const weatherDesc = document.getElementById("weather-desc");
   const humidity = document.getElementById("humidity");
   const windSpeed = document.getElementById("wind-speed");
-  const chanceOfRain = document.getElementById("chance-of-rain");
+  const sunriseTimes = document.querySelectorAll(".sunrise-time");
+  const sunsetTimes = document.querySelectorAll(".sunset-time");
+ 
+  const sunrise = sessionStorage.getItem("sunrise");
+  const sunset = sessionStorage.getItem("sunset");
 
   cityName.textContent = data.name;
   temperature.textContent = `${data.main.temp} °C`;
   weatherDesc.textContent = data.weather[0].description;
+
   humidity.textContent = `Humidity: ${data.main.humidity} %`;
   windSpeed.textContent = `Wind Speed: ${data.wind.speed} m/s`;
 
@@ -533,6 +546,20 @@ function updateWeatherInfo(data) {
   } else {
     chanceOfRain.textContent = "Chance of Rain : N/A";
   }
+
+  humidity.textContent = `${data.main.humidity} %`;
+  windSpeed.textContent = `${data.wind.speed} m/s`;
+  
+  sunriseTimes.forEach(elem => {
+    elem.textContent = `${sunrise} A.M.`;
+  });
+
+  sunsetTimes.forEach(elem => {
+    elem.textContent = `${sunset} P.M.`;
+  });
+  
+   updateWindDirection(data.wind.deg); 
+
 }
 
 function populateForecastCards() {
@@ -555,15 +582,32 @@ function populateForecastCards() {
     const iconElem = card.querySelector(".icon");
     const statusElem = card.querySelector(".status");
     const mainElem = document.querySelector(".icons");
-
+    const chanceOfRain = document.querySelector("#chance-of-rain");
+    
     dayElem.textContent = day;
     tempElem.textContent = temperature;
     iconElem.src = iconSrc;
-    // mainElem.src = mainSrc;
-    statusElem.textContent = weatherDescription;
+    mainElem.src = mainSrc;
 
+    statusElem.textContent = weatherDescription;
+     
+    const rainChance = (forecast.pop * 100).toFixed(1);
+    
     humidityElem.textContent = `${forecast.main.humidity} %`;
     windSpeedElem.textContent = `${forecast.wind.speed} m/s`;
+    chanceOfRain.textContent = `${rainChance}%`;
+
+    if (iconSrc.endsWith('clear-sky.png')) {
+      iconElem.classList.add('rotate'); 
+      mainElem.classList.add('rotate');
+    }
+    else {
+      iconElem.classList.add('otherImg'); 
+      mainElem.classList.add('otherImg');
+      iconElem.classList.remove('rotate'); 
+      mainElem.classList.remove('rotate');
+    }
+    
   });
 }
 
