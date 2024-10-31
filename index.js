@@ -503,12 +503,10 @@ function getWeatherByCity(city) {
       latitude = data.coord.lat;
       longitude = data.coord.lon;
 
-
       sessionStorage.setItem(
         "currPos",
         JSON.stringify({ lat: latitude, lon: longitude })
       );
-
 
        const sunrise = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
        const sunset = new Date(data.sys.sunset * 1000).toLocaleTimeString();
@@ -633,17 +631,15 @@ function updateWeatherInfo(data) {
   temperature.textContent = `${data.main.temp} °C`;
   weatherDesc.textContent = data.weather[0].description;
 
-  humidity.textContent = `Humidity: ${data.main.humidity} %`;
-  windSpeed.textContent = `Wind Speed: ${data.wind.speed} m/s`;
+  // humidity.textContent = `Humidity: ${data.main.humidity} %`;
+  // windSpeed.textContent = `Wind Speed: ${data.wind.speed} m/s`;
+    sunriseTimes.forEach(elem => {
+    elem.textContent = `${sunrise} A.M.`;
+  });
 
-
-  const rainProb =
-    ((data.main.humidity - 70) / 30) * ((1013 - data.main.pressure) / 10) * 100;
-  if (rainProb > 0) {
-    chanceOfRain.textContent = `Chance of Rain : ${rainProb.toFixed(2)} %`;
-  } else {
-    chanceOfRain.textContent = "Chance of Rain : N/A";
-  }
+  sunsetTimes.forEach(elem => {
+    elem.textContent = `${sunset} P.M.`;
+  });
 
   humidity.textContent = `${data.main.humidity} %`;
   windSpeed.textContent = `${data.wind.speed} m/s`;
@@ -688,7 +684,7 @@ function populateForecastCards() {
 
     statusElem.textContent = weatherDescription;
      
-    const rainChance = (forecast.pop * 100).toFixed(1);
+   const rainChance = (forecast.pop * 100).toFixed(1);
     
     humidityElem.textContent = `${forecast.main.humidity} %`;
     windSpeedElem.textContent = `${forecast.wind.speed} m/s`;
