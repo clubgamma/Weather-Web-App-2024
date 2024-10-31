@@ -348,7 +348,21 @@ footer {
     padding: 1rem;
     font-size: 0.9rem;
 }
-
+.air-uv{
+    display: flex; 
+    justify-content: space-between;
+    flex-direction: row;
+}
+.gas {
+    display: flex; 
+    justify-content: space-around;
+    flex-direction: column;
+}
+.air_card {
+    display: flex; 
+    justify-content: space-around;
+    flex-direction: row;
+}
 /* Responsive Design */
 @media screen and (max-width: 768px) {
     .weather-container {
@@ -373,6 +387,11 @@ footer {
     .temperature {
         font-size: 3rem;
     }
+    .air-uv{
+        display: flex; 
+        justify-content: space-between;
+        flex-direction: column;
+    }
 }
 
 @media screen and (max-width: 480px) {
@@ -396,12 +415,18 @@ footer {
     .temperature {
         font-size: 2.5rem;
     }
+    .air-uv{
+        display: flex; 
+        justify-content: space-between;
+        flex-direction: column;
+    }
 }
 
 
 .air-quality {
-    margin-top: 2rem;
-  }
+    flex: 1;
+    margin: 2rem;
+}
   
   .air-quality .detail-item {
     display: flex;
@@ -441,8 +466,9 @@ footer {
 
   /* UV Index Styles */
 .uv-index {
-    margin-top: 2rem;
-  }
+    margin: 2rem;
+    flex: 1;
+}
   
   .uv-text {
     text-align: left;

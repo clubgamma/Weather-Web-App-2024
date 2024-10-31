@@ -52,8 +52,8 @@
 
         <section id="health-impact" class="weather-section"></section>
 
-          <div style="display: flex; justify-content: space-between">
-            <section class="air-quality" style="width: 44%">
+          <div class="air-uv">
+            <section class="air-quality" >
               <h3><i class="fas fa-wind"></i> Air Quality</h3>
               <div id="aqi-info" class="weather-details">
                 <div class="detail-item">
@@ -68,7 +68,7 @@
             </section>
 
             <!-- Add this section after the air-quality section -->
-            <section class="uv-index" style="width: 44%">
+            <section class="uv-index">
               <h3><i class="fas fa-sun"></i> UV Index</h3>
               <div id="uv-info" class="weather-details">
                 <div class="detail-item">
@@ -173,7 +173,7 @@
             </div>
           </section>
 
-          <section>
+          <section class="gas">
             <h3>
               <i
                 class="fa-solid fa-feather-pointed"
@@ -188,7 +188,7 @@
             </h3>
 
             <div id="airCards">
-              <div style="display: flex; justify-content: space-around">
+              <div class="air_card">
                 <div class="airCard">
                   <p>CO :</p>
                   <p id="co"></p>
@@ -197,6 +197,8 @@
                   <p>NO :</p>
                   <p id="no"></p>
                 </div>
+              </div>
+              <div class="air_card">
                 <div class="airCard">
                   <p>NO<sub>2</sub> :</p>
                   <p id="no2"></p>
@@ -206,7 +208,7 @@
                   <p id="o3"></p>
                 </div>
               </div>
-              <div style="display: flex; justify-content: space-around">
+              <div class="air_card">
                 <div class="airCard">
                   <p>SO<sub>2</sub> :</p>
                   <p id="so2"></p>
@@ -215,6 +217,8 @@
                   <p>PM<sub>2.5</sub> :</p>
                   <p id="pm2"></p>
                 </div>
+              </div>
+              <div class="air_card">
                 <div class="airCard">
                   <p>PM<sub>10</sub> :</p>
                   <p id="pm10"></p>
