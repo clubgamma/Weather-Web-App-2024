@@ -27,6 +27,116 @@ function getUVIndex(lat, lon) {
     });
 }
 
+function loadWeatherMap() {
+  const weatherData = JSON.parse(sessionStorage.getItem("weatherData"));
+  if (!weatherData || !weatherData.coord) return;
+
+  const { lat, lon } = weatherData.coord;
+  
+  // Initialize the map
+  const map = L.map('weather-map', {
+    center: [lat, lon],
+    zoom: 12,
+    scrollWheelZoom: false, // Disable scroll wheel zoom by default
+    zoomControl: true
+  });
+
+  // Add the tile layer (OpenStreetMap)
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Add a marker for the city location
+  L.marker([lat, lon])
+    .addTo(map)
+    .bindPopup(`${weatherData.name}, ${weatherData.sys.country}`)
+    .openPopup();
+
+  let isMapActive = false;
+  const mapElement = document.getElementById('weather-map');
+
+  // Prevent scroll propagation when cursor is over the map
+  mapElement.addEventListener('wheel', function(e) {
+    if (!isMapActive) {
+      e.stopPropagation();
+    }
+  }, { passive: false });
+
+  // Handle touch events for mobile
+  mapElement.addEventListener('touchmove', function(e) {
+    if (!isMapActive) {
+      e.stopPropagation();
+    }
+  }, { passive: false });
+
+  // Add click handler to enable/disable zoom
+  map.on('click', function() {
+    if (!isMapActive) {
+      map.scrollWheelZoom.enable();
+      isMapActive = true;
+      mapElement.style.border = '2px solid #4CAF50';
+      zoomMessage.textContent = 'Zoom enabled - Click map to disable';
+    } else {
+      map.scrollWheelZoom.disable();
+      isMapActive = false;
+      mapElement.style.border = '1px solid #ccc';
+      zoomMessage.textContent = 'Click map to enable zoom';
+    }
+  });
+
+  // Add zoom message
+  const zoomMessage = document.createElement('div');
+  zoomMessage.className = 'map-message';
+  zoomMessage.textContent = 'Click map to enable zoom';
+  mapElement.appendChild(zoomMessage);
+
+  // Add intersection observer to handle scroll visibility
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting && isMapActive) {
+        // Disable zoom when map scrolls out of view
+        map.scrollWheelZoom.disable();
+        isMapActive = false;
+        mapElement.style.border = '1px solid #ccc';
+        zoomMessage.textContent = 'Click map to enable zoom';
+      }
+    });
+  }, {
+    threshold: 0.5 // Trigger when 50% of the map is visible/invisible
+  });
+
+  observer.observe(mapElement);
+
+  // Optional: Add escape key handler to disable zoom
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && isMapActive) {
+      map.scrollWheelZoom.disable();
+      isMapActive = false;
+      mapElement.style.border = '1px solid #ccc';
+      zoomMessage.textContent = 'Click map to enable zoom';
+    }
+  });
+
+  // Handle mouse leave
+  mapElement.addEventListener('mouseleave', function() {
+    if (isMapActive) {
+      map.scrollWheelZoom.disable();
+      isMapActive = false;
+      mapElement.style.border = '1px solid #ccc';
+      zoomMessage.textContent = 'Click map to enable zoom';
+    }
+  });
+
+  // Prevent default scroll behavior when cursor is over the map
+  mapElement.addEventListener('mouseenter', function() {
+    document.body.style.overflow = isMapActive ? 'hidden' : 'auto';
+  });
+
+  mapElement.addEventListener('mouseleave', function() {
+    document.body.style.overflow = 'auto';
+  });
+}
+
 function updateUVInfo(data) {
   const uvValue = document.getElementById("uv-value");
   const uvLevel = document.getElementById("uv-level");
