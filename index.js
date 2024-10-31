@@ -11,7 +11,101 @@ const currentLocationBtn = document.getElementById("current-location-btn");
 let forecastInfo = []; 
 let debounceTimeout;
 
+// Add this to index.js
+function showHealthImpact() {
+  const weatherData = JSON.parse(sessionStorage.getItem("weatherData"));
+  const aqiData = JSON.parse(sessionStorage.getItem("aqiData"));
+  
+  function getHealthAdvice(weather, aqi) {
+    let advice = [];
+    const temp = weather.main.temp;
+    const humidity = weather.main.humidity;
+    const windSpeed = weather.wind.speed;
+    const aqiValue = aqi.list[0].main.aqi;
+    const weatherCondition = weather.weather[0].main.toLowerCase();
 
+    // Temperature-related advice
+    if (temp > 35) {
+        advice.push('Extreme heat! Stay indoors, drink plenty of water, and avoid strenuous activities.');
+    } else if (temp > 30) {
+        advice.push('High risk of dehydration. Drink plenty of water and seek shade when outdoors.');
+    } else if (temp < 0) {
+        advice.push('Freezing temperatures. Bundle up and protect extremities from frostbite.');
+    } else if (temp < 10) {
+        advice.push('Cold weather. Dress in layers and stay warm to prevent hypothermia.');
+    }
+
+    // Humidity-related advice
+    if (humidity > 70) {
+        advice.push('High humidity may cause respiratory discomfort and increase risk of heat exhaustion.');
+    } else if (humidity < 30) {
+        advice.push('Low humidity can cause dry skin and respiratory irritation. Use a humidifier if indoors.');
+    }
+
+    // Wind-related advice
+    if (windSpeed > 20) {
+        advice.push('Strong winds. Be cautious of flying debris and secure loose outdoor items.');
+    }
+
+    // Air quality advice
+    if (aqiValue > 4) {
+        advice.push('Very poor air quality. Limit outdoor activities and wear a mask if going outside.');
+    } else if (aqiValue > 3) {
+        advice.push('Poor air quality. Consider wearing a mask outdoors, especially if you have respiratory issues.');
+    } else if (aqiValue > 2) {
+        advice.push('Moderate air quality. Sensitive groups should consider reducing prolonged outdoor exertion.');
+    }
+
+    // Weather condition specific advice
+    switch (weatherCondition) {
+        case 'rain':
+            advice.push('Rainy conditions. Use caution when driving and carry an umbrella.');
+            break;
+        case 'snow':
+            advice.push('Snowy conditions. Dress warmly, wear appropriate footwear, and be cautious of icy surfaces.');
+            break;
+        case 'thunderstorm':
+            advice.push('Thunderstorm alert. Stay indoors and avoid using electrical appliances.');
+            break;
+        case 'fog':
+            advice.push('Foggy conditions. Use caution when driving and use low beam headlights.');
+            break;
+    }
+
+    // UV index advice (if available)
+    if (weather.uvi) {
+        const uvIndex = weather.uvi;
+        if (uvIndex > 10) {
+            advice.push('Extreme UV levels. Avoid sun exposure and wear protective clothing if outdoors.');
+        } else if (uvIndex > 7) {
+            advice.push('Very high UV levels. Use strong sun protection and limit mid-day sun exposure.');
+        } else if (uvIndex > 5) {
+            advice.push('High UV levels. Wear sunscreen and protective clothing when outdoors.');
+        }
+    }
+
+    return advice;
+}
+
+const healthContainer = document.getElementById('health-impact');
+const healthAdvice = getHealthAdvice(weatherData, aqiData);
+
+healthContainer.innerHTML = `
+    <div class="health-card">
+        <h3><i class="fas fa-heartbeat"></i> Health Advisory</h3>
+        <ul>
+            ${healthAdvice.map(advice => `<li>${advice}</li>`).join('')}
+        </ul>
+    </div>
+`;
+
+// Add a note if no specific advice is given
+if (healthAdvice.length === 0) {
+    healthContainer.innerHTML += `
+        <p class="no-advice">No specific health advisories for current conditions. Enjoy your day!</p>
+    `;
+}
+}
 
 function getUVIndex(lat, lon) {
   const uvUrl = `https://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=${apiKey}`;
@@ -445,6 +539,7 @@ window.onload = function () {
   if (weatherData) {
     updateWeatherInfo(weatherData);
     loadWeatherMap(); 
+    showHealthImpact();
   }
 
   if (forecastData && forecastData.list) {

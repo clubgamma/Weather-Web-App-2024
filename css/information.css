@@ -533,3 +533,57 @@ footer {
 #wind-direction-text {
     font-size: 1rem;
 }
+
+/* Add to information.css */
+.weather-section {
+    background: var(--glass-bg);
+    border-radius: var(--card-radius);
+    padding: 1.8rem;
+    margin-bottom: 2.5rem;
+    box-shadow: var(--shadow);
+}
+
+.alert {
+    background: rgba(255, 87, 87, 0.1);
+    border-left: 4px solid #ff5757;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+}
+
+.sun-card {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.sun-time, .day-length {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.recommendations-card, .health-card {
+    background: var(--glass-bg);
+    padding: 1.5rem;
+    border-radius: 10px;
+}
+
+.recommendations-card ul, .health-card ul {
+    list-style: none;
+    padding: 0;
+}
+
+.recommendations-card li, .health-card li {
+    margin: 0.8rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.recommendations-card li:before, .health-card li:before {
+    content: '•';
+    color: var(--primary-color);
+    position: absolute;
+    left: 0;
+}
