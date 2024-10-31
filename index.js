@@ -527,6 +527,7 @@ function updateWeatherInfo(data) {
   const windSpeed = document.getElementById("wind-speed");
   const sunriseTimes = document.querySelectorAll(".sunrise-time");
   const sunsetTimes = document.querySelectorAll(".sunset-time");
+  const chanceOfRain = document.getElementById("chance-of-rain");
  
   const sunrise = sessionStorage.getItem("sunrise");
   const sunset = sessionStorage.getItem("sunset");
