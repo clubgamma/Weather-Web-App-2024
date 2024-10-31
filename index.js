@@ -108,6 +108,26 @@ function updateAQIInfo(data) {
   const aqiStatus = document.getElementById("aqi-status");
   const aqiDescription = document.getElementById("aqi-description");
   const aqiIcon = document.querySelector(".air-quality .fas.fa-lungs");
+  
+  const airArr = data.list[0].components;
+
+  const co = document.getElementById("co");
+  const no = document.getElementById("no");
+  const no2 = document.getElementById("no2");
+  const o3 = document.getElementById("o3");
+  const so2 = document.getElementById("so2");
+  const pm2 = document.getElementById("pm2");
+  const pm10 = document.getElementById("pm10");
+  const nh3 = document.getElementById("nh3");
+
+  co.innerText = `${airArr.co} ppm`;
+  no.innerText = `${airArr.no} µg`;
+  no2.innerText = `${airArr.no2} ppb`;
+  o3.innerText = `${airArr.o3} µg`;
+  so2.innerText = `${airArr.so2} ppb`;
+  pm2.innerText = `${airArr.pm2_5} µg`;
+  pm10.innerText = `${airArr.pm10} µg`;
+  nh3.innerText = `${airArr.nh3} µg`;
 
   const aqi = data.list[0].main.aqi;
   
