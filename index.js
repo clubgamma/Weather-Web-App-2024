@@ -382,6 +382,11 @@ function getWeatherByCity(city) {
       // Store coordinates for subsequent API calls
       latitude = data.coord.lat;
       longitude = data.coord.lon;
+
+       const sunrise = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
+       const sunset = new Date(data.sys.sunset * 1000).toLocaleTimeString();
+       sessionStorage.setItem("sunrise", sunrise);
+       sessionStorage.setItem("sunset", sunset);
       
       // Create promises for both AQI and UV index data
       const aqiPromise = fetch(`https://api.openweathermap.org/data/2.5/air_pollution?lat=${latitude}&lon=${longitude}&appid=${apiKey}`);
@@ -486,12 +491,27 @@ function updateWeatherInfo(data) {
   const humidity = document.getElementById("humidity");
   const windSpeed = document.getElementById("wind-speed");
   const chanceOfRain = document.getElementById("chance-of-rain");
+  const sunriseTimes = document.querySelectorAll(".sunrise-time");
+  const sunsetTimes = document.querySelectorAll(".sunset-time");
+
+  const sunrise = sessionStorage.getItem("sunrise");
+  const sunset = sessionStorage.getItem("sunset");
 
   cityName.textContent = data.name;
   temperature.textContent = `${data.main.temp} °C`;
   weatherDesc.textContent = data.weather[0].description;
   humidity.textContent = `Humidity: ${data.main.humidity} %`;
   windSpeed.textContent = `Wind Speed: ${data.wind.speed} m/s`;
+
+  
+  sunriseTimes.forEach(elem => {
+    elem.textContent = `${sunrise} A.M.`;
+  });
+
+  sunsetTimes.forEach(elem => {
+    elem.textContent = `${sunset} P.M.`;
+  });
+  
   updateWindDirection(data.wind.deg); 
   if (data.rain && data.rain["1h"]) {
     chanceOfRain.textContent = `Chance of Rain : ${data.rain["1h"]} %`;
@@ -524,6 +544,7 @@ function populateForecastCards() {
     dayElem.textContent = day;
     tempElem.textContent = temperature;
     iconElem.src = iconSrc;
+    mainElem.src = mainSrc;
     statusElem.textContent = weatherDescription;
 
     humidityElem.textContent = `${forecast.main.humidity} %`;
