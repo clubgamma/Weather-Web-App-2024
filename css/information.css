@@ -425,7 +425,7 @@ footer {
 
 .air-quality {
     flex: 1;
-    margin: 2rem;
+    margin-right: 0.5rem;
 }
   
   .air-quality .detail-item {
@@ -466,8 +466,9 @@ footer {
 
   /* UV Index Styles */
 .uv-index {
-    margin: 2rem;
+    /* margin: 1rem; */
     flex: 1;
+    margin-left: 0.5rem;
 }
   
   .uv-text {
