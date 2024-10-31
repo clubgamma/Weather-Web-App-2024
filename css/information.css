@@ -512,3 +512,20 @@ footer {
     background: var(--card-bg);
     box-shadow: var(--shadow);
 }
+
+.wind-direction {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+#wind-direction-icon {
+    font-size: 1.5rem;
+    margin-right: 10px;
+    transition: transform 0.3s ease;
+}
+
+#wind-direction-text {
+    font-size: 1rem;
+}
