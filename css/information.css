@@ -333,6 +333,13 @@ main section:hover {
     animation: floating 3s ease-in-out infinite;
 }
 
+
+#map {
+    height: 450px;
+    width: 80%;
+    margin: auto;
+}
+
 .otherImg{
     animation: floating 3s ease-in-out infinite;
 }
@@ -348,6 +355,7 @@ main section:hover {
       transform: rotate(360deg);
     }
   }
+
 
 
 /* Animations */
