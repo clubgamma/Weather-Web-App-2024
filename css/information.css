@@ -25,10 +25,16 @@ body {
     align-items: center;
     color: var(--text-dark);
 }
-img{
-    height: 100px;
-    width: 100px;
+
+.main-icon{
+    width: 110px;
+    height: 110px;
 }
+.forcast-images{
+    height: 38px;
+    width: 46px;
+}
+
 .weather-container {
     max-width: 1200px;
     width: 90%;
@@ -326,6 +332,23 @@ main section:hover {
     color: var(--primary-color);
     animation: floating 3s ease-in-out infinite;
 }
+
+.otherImg{
+    animation: floating 3s ease-in-out infinite;
+}
+.rotate {
+    animation: spin 9s linear infinite;
+  }
+  
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
 
 /* Animations */
 @keyframes pulse {
