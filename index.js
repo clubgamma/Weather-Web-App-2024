@@ -630,17 +630,6 @@ function updateWeatherInfo(data) {
   cityName.textContent = data.name;
   temperature.textContent = `${data.main.temp} °C`;
   weatherDesc.textContent = data.weather[0].description;
-
-  // humidity.textContent = `Humidity: ${data.main.humidity} %`;
-  // windSpeed.textContent = `Wind Speed: ${data.wind.speed} m/s`;
-    sunriseTimes.forEach(elem => {
-    elem.textContent = `${sunrise} A.M.`;
-  });
-
-  sunsetTimes.forEach(elem => {
-    elem.textContent = `${sunset} P.M.`;
-  });
-
   humidity.textContent = `${data.main.humidity} %`;
   windSpeed.textContent = `${data.wind.speed} m/s`;
   
@@ -681,6 +670,7 @@ function populateForecastCards() {
     dayElem.textContent = day;
     tempElem.textContent = temperature;
     iconElem.src = iconSrc;
+    mainElem.src = mainSrc;
 
     statusElem.textContent = weatherDescription;
      
@@ -692,6 +682,7 @@ function populateForecastCards() {
 
     if (iconSrc.endsWith('clear-sky.png')) {
       iconElem.classList.add('rotate'); 
+      mainElem.classList.add('rotate'); 
     }
     else {
       iconElem.classList.add('otherImg'); 
