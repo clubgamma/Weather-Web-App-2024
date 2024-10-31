@@ -678,7 +678,7 @@ function populateForecastCards() {
     
     humidityElem.textContent = `${forecast.main.humidity} %`;
     windSpeedElem.textContent = `${forecast.wind.speed} m/s`;
-    chanceOfRain.textContent = `${rainChance}%`;
+    chanceOfRain.textContent = `Chance Of Rain: ${rainChance}%`;
 
     if (iconSrc.endsWith('clear-sky.png')) {
       iconElem.classList.add('rotate'); 
