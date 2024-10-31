@@ -505,7 +505,7 @@ function populateForecastCards() {
     dayElem.textContent = day;
     tempElem.textContent = temperature;
     iconElem.src = iconSrc;
-    mainElem.src = mainSrc;
+    // mainElem.src = mainSrc;
     statusElem.textContent = weatherDescription;
 
     humidityElem.textContent = `${forecast.main.humidity} %`;
