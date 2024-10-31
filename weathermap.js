@@ -1,6 +1,5 @@
 let map;
 let weatherLayer;
-// const apiKey = "91181b4ccb7f36e6b27aefa8bb9b5624"; // Replace with your API key
 
 function initMap(lat, lon) {
     map = new ol.Map({

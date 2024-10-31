@@ -497,7 +497,11 @@ footer {
     justify-content: center;
     gap: 1rem;
 }
-
+.map-layer {
+    width: 100%;
+    aspect-ratio: 3/4;
+    border-radius: 10px;
+}
 .map-control {
     padding: 8px 16px;
     border: 1px solid var(--glass-border);
