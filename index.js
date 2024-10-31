@@ -11,7 +11,6 @@ const currentLocationBtn = document.getElementById("current-location-btn");
 let forecastInfo = [];
 let debounceTimeout;
 
-
 // Add this to index.js
 function showHealthImpact() {
   const weatherData = JSON.parse(sessionStorage.getItem("weatherData"));
@@ -582,7 +581,7 @@ window.onload = function () {
 
   if (weatherData) {
     updateWeatherInfo(weatherData);
-    loadWeatherMap(); 
+    loadWeatherMap();
     showHealthImpact();
   }
 
@@ -626,7 +625,7 @@ function updateWeatherInfo(data) {
   const windSpeed = document.getElementById("wind-speed");
   const sunriseTimes = document.querySelectorAll(".sunrise-time");
   const sunsetTimes = document.querySelectorAll(".sunset-time");
- 
+  const chanceOfRain = document.getElementById("chance-of-rain");
   const sunrise = sessionStorage.getItem("sunrise");
   const sunset = sessionStorage.getItem("sunset");
 
@@ -686,7 +685,6 @@ function populateForecastCards() {
     dayElem.textContent = day;
     tempElem.textContent = temperature;
     iconElem.src = iconSrc;
-    mainElem.src = mainSrc;
 
     statusElem.textContent = weatherDescription;
      
@@ -698,7 +696,6 @@ function populateForecastCards() {
 
     if (iconSrc.endsWith('clear-sky.png')) {
       iconElem.classList.add('rotate'); 
-      mainElem.classList.add('rotate');
     }
     else {
       iconElem.classList.add('otherImg'); 
