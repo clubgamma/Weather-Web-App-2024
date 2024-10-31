@@ -470,6 +470,7 @@ window.onload = function () {
 
   if (weatherData) {
     updateWeatherInfo(weatherData);
+    loadWeatherMap(); 
   }
 
   if (forecastData && forecastData.list) {
@@ -486,6 +487,24 @@ window.onload = function () {
   }
 };
 
+function degreesToDirection(degrees) {
+  const directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
+  const index = Math.round(degrees / 22.5) % 16;
+  return directions[index];
+}
+
+
+function updateWindDirection(degrees) {
+  const windDirectionIcon = document.getElementById('wind-direction-icon');
+  const windDirectionText = document.getElementById('wind-direction-text');
+  
+  if (windDirectionIcon && windDirectionText) {
+      windDirectionIcon.style.transform = `rotate(${degrees}deg)`;
+      const direction = degreesToDirection(degrees);
+      windDirectionText.textContent = `${direction} (${degrees}°)`;
+  }
+}
+
 function updateWeatherInfo(data) {
   const cityName = document.getElementById("city-name");
   const temperature = document.getElementById("temperature");
@@ -500,8 +519,7 @@ function updateWeatherInfo(data) {
   humidity.textContent = `Humidity: ${data.main.humidity} %`;
   windSpeed.textContent = `Wind Speed: ${data.wind.speed} m/s`;
 
-  const rainProb =
-    ((data.main.humidity - 70) / 30) * ((1013 - data.main.pressure) / 10) * 100;
+  const rainProb = ((data.main.humidity - 70) / 30) * ((1013 - data.main.pressure) / 10) * 100;
   if (rainProb > 0) {
     chanceOfRain.textContent = `Chance of Rain : ${rainProb.toFixed(2)} %`;
   } else {
